@@ -4,7 +4,8 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/AndroidStudioProjects/NetworkBT/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2265" />
-        <entry key="..\:/AndroidStudioProjects/NetworkBT/app/src/main/res/layout/activity_main.xml" value="0.268" />
+        <entry key="..\:/AndroidStudioProjects/NetworkBT/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/AndroidStudioProjects/NetworkBT/app/src/main/res/menu/activity_main_menu.xml" value="0.2015625" />
         <entry key="..\:/AndroidStudioProjects/NetworkBT/app/src/main/res/menu/activity_main_menu_xml.xml" value="0.25364583333333335" />
       </map>
     </option>
