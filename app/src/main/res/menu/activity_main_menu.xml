@@ -17,6 +17,8 @@
                 android:title="Modifier une connexion" />
         </menu>
     </item>
-    <item android:title="Prochainement" />
+    <item
+        android:id="@+id/reini"
+        android:title="Réinitialiser " />
     <item android:title="Prochainement" />
 </menu>

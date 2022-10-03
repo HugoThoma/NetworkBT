@@ -15,4 +15,8 @@ class Graph {
         var connexion = Connexion(ObjetDépart, ObjetArrivée)
         myConnexions.put(id, connexion)
     }
+    fun Reinitialiser(){
+        myObjects.clear()
+        myConnexions.clear()
+    }
 }

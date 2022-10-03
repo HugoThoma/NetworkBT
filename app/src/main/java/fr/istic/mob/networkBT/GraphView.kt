@@ -1,10 +1,7 @@
 package fr.istic.mob.networkBT
 
 import android.content.Context
-import android.graphics.Bitmap
-import android.graphics.Canvas
-import android.graphics.Color
-import android.graphics.Paint
+import android.graphics.*
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
@@ -37,8 +34,6 @@ class GraphView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
                 if(status == "ajouter_obj") {
                     canvas.drawCircle(dessin.px, dessin.py, width, mPaint)
                 }
-
-
             }
             for (connexion in graphe.myConnexions.values){
                 if (status == "connecter_obj") {
@@ -49,16 +44,15 @@ class GraphView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
                     canvas.drawLine(posx1, posy1, posx2, posy2, mPaint)
                 }
             }
-        /*  if(status == "connecter_obj"){
-                    canvas.drawLine(float startX, float startY, float stopX, float stopY, mPaint);
-                }*/
 
-
-
+            if (status == "reinitialiser"){
+                //canvas.drawColor(0, PorterDuff.Mode.CLEAR);
+                canvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR)
+            }
     }
 
     override fun onTouchEvent(event: MotionEvent): Boolean {
-        gestureListener
+        //gestureListener
         if (status == "ajouter_obj") {
             //var simpleGestureListener : SimpleGestureListener = SimpleGestureListener()
             posx = event.x
@@ -67,16 +61,16 @@ class GraphView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
             graphe.addObject(this.idObjet, "nom", posx, posy)
             idObjet++
         }
-
         if(status == "connecter_obj"){
-
             invalidate()
             if(gestureListener.obj1 != null && gestureListener.obj2!! != null){
                 graphe.addConnexion(this.idConnexion,gestureListener.obj1!!,gestureListener.obj2!!)
             }
-
-
             idConnexion++
+        }
+        if(status == "reinitialiser"){
+            graphe.Reinitialiser()
+            postInvalidate()
         }
         return true
     }

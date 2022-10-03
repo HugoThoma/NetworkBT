@@ -65,6 +65,10 @@ class MainActivity : AppCompatActivity() {
                 graphView.status = "modifier_cnx"
                 return true
             }
+            R.id.reini->{
+                graphView.status = "reinitialiser"
+                return true
+            }
         }
 
         return true
