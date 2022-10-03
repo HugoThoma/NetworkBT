@@ -1,5 +1,7 @@
 package fr.istic.mob.networkBT
 
-class Objet(var etiquette : String) {
-
-}
+data class Objet(
+    val etiquette : String,
+    val px : Float,
+    val py : Float,
+)

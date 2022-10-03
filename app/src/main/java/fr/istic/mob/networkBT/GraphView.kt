@@ -18,20 +18,29 @@ class GraphView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
     var width = 50.0f
     var height = 50.0f
     var touched = false
+    var graphe : Graph = Graph()
+    var idObjet : Int = 0
+
     override fun onDraw(canvas: Canvas) {
         canvas.drawColor(Color.TRANSPARENT)
-        if (touched) {
+        /*if (touched) {
             canvas.drawRect(posx, posy, posx + width, posy + height, mPaint)
             postInvalidate()
+        }*/
+        for (dessin in graphe.mygraph.values){
+            canvas.drawCircle(dessin.px, dessin.py, width, mPaint)
         }
     }
 
     override fun onTouchEvent(event: MotionEvent): Boolean {
+        //var simpleGestureListener : SimpleGestureListener = SimpleGestureListener()
         touched = true
-        //getting the touched x and y position
         posx = event.x
         posy = event.y
         invalidate()
+
+        graphe.addObject(this.idObjet,"nom",posx,posx)
+        idObjet++
         return true
     }
 
