@@ -5,25 +5,30 @@ import android.graphics.Paint
 import android.view.GestureDetector.SimpleOnGestureListener
 import android.view.MotionEvent
 
-internal class SimpleGestureListener : SimpleOnGestureListener() {
+public class SimpleGestureListener : SimpleOnGestureListener() {
 
-    var posx= 0f
+    var posx = 0f
     var posy = 0f
+    var obj1 : Objet?=null
+    var obj2 : Objet?=null
 
-    override fun onDown(event: MotionEvent): Boolean {
-        // triggers first for both single tap and long press
-        return true
+
+    override fun onDown(e: MotionEvent): Boolean {
+        return true // nécessaire !!!
     }
 
-    override fun onSingleTapUp(event: MotionEvent): Boolean {
-        // triggers after onDown only for single tap
-        return true
+    override fun onLongPress(e: MotionEvent) {
+        super.onLongPress(e)
+    }
+    override fun onFling(e1: MotionEvent, e2: MotionEvent,distanceX: Float, distanceY: Float): Boolean
+    {
+         obj1 = Objet("obj1",e1.x,e1.y)
+         obj2 = Objet("obj2",e2.x,e2.y)
+
+        return super.onFling(e1, e2, distanceX, distanceY)
     }
 
-    override fun onLongPress(event: MotionEvent) {
-        // triggers after onDown only for long press
-        super.onLongPress(event)
-        //getting the touched x and y position
-
+    override fun onDoubleTap(e: MotionEvent): Boolean {
+        return super.onDoubleTap(e)
     }
 }

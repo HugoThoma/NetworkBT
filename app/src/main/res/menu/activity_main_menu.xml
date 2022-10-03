@@ -3,9 +3,18 @@
 
     <item android:title="Mode">
         <menu>
-            <item android:title="Ajout Objet" />
-            <item android:title="Ajout Connexion" />
-            <item android:title="Modification" />
+            <item
+                android:id="@+id/objet"
+                android:title="Ajout Objet" />
+            <item
+                android:id="@+id/connecter"
+                android:title="Ajout Connexion" />
+            <item
+                android:id="@+id/modifierobjet"
+                android:title="Modifier un objet" />
+            <item
+                android:id="@+id/modifierconnexion"
+                android:title="Modifier une connexion" />
         </menu>
     </item>
     <item android:title="Prochainement" />
