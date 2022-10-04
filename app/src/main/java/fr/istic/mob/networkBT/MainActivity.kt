@@ -3,6 +3,7 @@ package fr.istic.mob.networkBT
 import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
@@ -66,7 +67,10 @@ class MainActivity : AppCompatActivity() {
                 return true
             }
             R.id.reini->{
-                graphView.status = "reinitialiser"
+                Log.e("Status", "reinitialize")
+                graphView.reinitialize()
+                graphView.status = "default"
+                //graphView.status = "reinitialize"
                 return true
             }
         }

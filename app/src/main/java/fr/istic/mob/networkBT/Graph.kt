@@ -1,5 +1,7 @@
 package fr.istic.mob.networkBT
 
+import android.util.Log
+
 class Graph {
     // contient le descr du graphe des connexions: objet,conx,couleur, posi
   //private var noeuds : HashSet<>
@@ -15,7 +17,7 @@ class Graph {
         var connexion = Connexion(ObjetDépart, ObjetArrivée)
         myConnexions.put(id, connexion)
     }
-    fun Reinitialiser(){
+    fun Reinitialize(){
         myObjects.clear()
         myConnexions.clear()
     }

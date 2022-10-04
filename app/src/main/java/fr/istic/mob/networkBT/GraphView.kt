@@ -3,6 +3,7 @@ package fr.istic.mob.networkBT
 import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
+import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 
@@ -20,7 +21,7 @@ class GraphView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
     var idObjet: Int = 0
     var idConnexion: Int = 0
 
-    var status = ""
+    var status = "default"
 
 
     override fun onDraw(canvas: Canvas) {
@@ -31,23 +32,18 @@ class GraphView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
         }*/
 
             for (dessin in graphe.myObjects.values) {
-                if(status == "ajouter_obj") {
+                //if(status == "ajouter_obj") {
                     canvas.drawCircle(dessin.px, dessin.py, width, mPaint)
-                }
+                //}
             }
             for (connexion in graphe.myConnexions.values){
-                if (status == "connecter_obj") {
+                //if (status == "connecter_obj") {
                     var posx1 = gestureListener.obj1!!.px
                     var posy1 = gestureListener.obj1!!.py
                     var posx2 = gestureListener.obj2!!.px
                     var posy2 = gestureListener.obj2!!.py
                     canvas.drawLine(posx1, posy1, posx2, posy2, mPaint)
-                }
-            }
-
-            if (status == "reinitialiser"){
-                //canvas.drawColor(0, PorterDuff.Mode.CLEAR);
-                canvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR)
+                //}
             }
     }
 
@@ -68,10 +64,7 @@ class GraphView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
             }
             idConnexion++
         }
-        if(status == "reinitialiser"){
-            graphe.Reinitialiser()
-            postInvalidate()
-        }
+        Log.e(status, " status en cours")
         return true
     }
 
@@ -79,5 +72,10 @@ class GraphView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
         mPaint = Paint()
         mPaint.color = Color.CYAN
         mPaint.style = Paint.Style.FILL_AND_STROKE
+    }
+
+    fun reinitialize(){
+        graphe.Reinitialize()
+        postInvalidate()
     }
 }
