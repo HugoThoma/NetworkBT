@@ -9,11 +9,14 @@ import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
 import android.widget.EditText
+import android.view.GestureDetector
+import android.widget.Toast
 
 
 class GraphView(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
 
     val gestureListener: SimpleGestureListener = SimpleGestureListener()
+    var gestureDetector: GestureDetector = GestureDetector(context, gestureListener)
 
     var posx = 0f
     var posy = 0f
@@ -29,39 +32,22 @@ class GraphView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
 
     private var name : String = ""
 
-
-    override fun onDraw(canvas: Canvas) {
-        canvas.drawColor(Color.TRANSPARENT)
-
-        for (dessin in graphe.myObjects.values) {
-            if(dessin.etiquette != "") {
-            canvas.drawCircle(dessin.px, dessin.py, width, mPaint)
-            }
-        }
-        for (connexion in graphe.myConnexions.values) {
-            //if (status == "connecter_obj") {
-            var posx1 = gestureListener.obj1!!.px
-            var posy1 = gestureListener.obj1!!.py
-            var posx2 = gestureListener.obj2!!.px
-            var posy2 = gestureListener.obj2!!.py
-            canvas.drawLine(posx1, posy1, posx2, posy2, mPaint)
-            //}
-        }
-    }
-
     override fun onTouchEvent(event: MotionEvent): Boolean {
-        //gestureListener
+        gestureDetector.onTouchEvent(event)
+        // if(gestureDetector.onTouchEvent(event)) Comment récupérer un long press ??? et boucler dessus ??
         if (status == "ajouter_obj") {
-            //var simpleGestureListener : SimpleGestureListener = SimpleGestureListener()
-            posx = event.x
-            posy = event.y
-            invalidate()
-            name = this.popup()
-            if(name != ""){
-                graphe.addObject(this.idObjet, name, posx, posy)
-            }
-            name ="" //On remet le nom a vide
-            idObjet++
+
+                posx = event.x
+                posy = event.y
+                invalidate()
+                name = this.popup()
+                if(name != ""){
+                    graphe.addObject(this.idObjet, name, posx, posy)
+                }
+                name ="" //On remet le nom a vide
+                idObjet++
+            //}
+
         }
         if (status == "connecter_obj") {
             invalidate()
@@ -76,6 +62,25 @@ class GraphView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
         }
         //Log.e(status, " status en cours")
         return true
+    }
+
+    override fun onDraw(canvas: Canvas) {
+        //canvas.drawColor(Color.TRANSPARENT)
+
+        for (dessin in graphe.myObjects.values) {
+            if(dessin.etiquette != "") {
+                canvas.drawCircle(dessin.px, dessin.py, width, mPaint)
+            }
+        }
+        for (connexion in graphe.myConnexions.values) {
+            //if (status == "connecter_obj") {
+            var posx1 = gestureListener.obj1!!.px
+            var posy1 = gestureListener.obj1!!.py
+            var posx2 = gestureListener.obj2!!.px
+            var posy2 = gestureListener.obj2!!.py
+            canvas.drawLine(posx1, posy1, posx2, posy2, mPaint)
+            //}
+        }
     }
 
 

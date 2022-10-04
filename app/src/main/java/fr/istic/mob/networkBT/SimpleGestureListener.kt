@@ -2,6 +2,7 @@ package fr.istic.mob.networkBT
 
 import android.graphics.Bitmap
 import android.graphics.Paint
+import android.util.Log
 import android.view.GestureDetector.SimpleOnGestureListener
 import android.view.MotionEvent
 
@@ -18,7 +19,10 @@ public class SimpleGestureListener : SimpleOnGestureListener() {
     }
 
     override fun onLongPress(e: MotionEvent) {
+
         super.onLongPress(e)
+        Log.e("longPress", "------------------------------------------")
+        //return true
     }
     override fun onFling(e1: MotionEvent, e2: MotionEvent,distanceX: Float, distanceY: Float): Boolean
     {

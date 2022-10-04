@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
+import android.view.View
 import androidx.appcompat.view.menu.MenuBuilder
 
 
@@ -26,12 +27,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         graphView = findViewById(R.id.view)
-//        var obj : MenuItem = findViewById(R.id.objet)
-//        var connex : MenuItem = findViewById(R.id.connecter)
-//        var modifcnx : MenuItem = findViewById(R.id.modifierconnexion)
-//        var modifobj: MenuItem = findViewById(R.id.modifierobjet)
-
-
     }
 
     @SuppressLint("RestrictedApi")
