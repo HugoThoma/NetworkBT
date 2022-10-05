@@ -1,5 +1,6 @@
 package fr.istic.mob.networkBT
 
+import android.graphics.PointF
 import android.util.Log
 
 class Graph {
@@ -9,8 +10,8 @@ class Graph {
      var myObjects: HashMap<String,Objet> = hashMapOf<String,Objet>()//stock tt les obj
     var myConnexions : HashMap<Int,Connexion> = hashMapOf<Int,Connexion>()//stock tt les obj
 
-     fun addObject(name : String, px: Float, py: Float){
-          var objet = Objet(name,px,py)
+     fun addObject(name : String, px: Float, py: Float, p: PointF){
+          var objet = Objet(name,px,py,p)
          myObjects.put(name,objet)
      }
     fun addConnexion(id : Int,ObjetDépart :Objet , ObjetArrivée:Objet){

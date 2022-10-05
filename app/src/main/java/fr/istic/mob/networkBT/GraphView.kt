@@ -26,7 +26,7 @@ class GraphView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
     var width = 25.0f
     var height = 50.0f
     var graphe: Graph = Graph()
-    var idObjet: Int = 0
+    //var idObjet: Int = 0
     var idConnexion: Int = 0
 
     var status = "default"
@@ -47,19 +47,12 @@ class GraphView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
 
                 posx = event.x
                 posy = event.y
-                //invalidate()
                 popup()
-                /*if(name != ""){
-                    graphe.addObject(idObjet, name, posx, posy)
-                    statusPopUp = "OK"
-                }*/
                 name ="" //On remet le nom a vide
-                idObjet++
-                //}
-
             }
             //return true
         }
+        //OnFling
     })
 
     override fun onTouchEvent(event: MotionEvent): Boolean {
@@ -87,6 +80,7 @@ class GraphView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
 
         for (dessin in graphe.myObjects.values) {
             if(dessin.etiquette != "") {
+                var circle =
                 canvas.drawCircle(dessin.px, dessin.py, width, mPaint)
             }
         }
@@ -99,6 +93,7 @@ class GraphView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
             canvas.drawLine(posx1, posy1, posx2, posy2, mPaint)
             //}
         }
+
     }
 
 
@@ -132,7 +127,8 @@ class GraphView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
         builder.setPositiveButton("OK",
             DialogInterface.OnClickListener { dialog, which ->
                 //Mettre en conformité le nom entré
-                graphe.addObject(input.text.toString(), posx, posy)
+                val p = PointF(posx,posy)
+                graphe.addObject(input.text.toString(), posx, posy, p)
                 invalidate()
                 //Blabla
             })
