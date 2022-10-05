@@ -6,17 +6,18 @@ import android.content.DialogInterface
 import android.graphics.*
 import android.text.InputType
 import android.util.AttributeSet
+import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import android.widget.EditText
 import android.view.GestureDetector
+import android.view.GestureDetector.SimpleOnGestureListener
 import android.widget.Toast
 
 
 class GraphView(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
 
     val gestureListener: SimpleGestureListener = SimpleGestureListener()
-    var gestureDetector: GestureDetector = GestureDetector(context, gestureListener)
 
     var posx = 0f
     var posy = 0f
@@ -29,26 +30,42 @@ class GraphView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
     var idConnexion: Int = 0
 
     var status = "default"
+    var statusPopUp = "KO"
 
     private var name : String = ""
+
+    var gestureDetector: GestureDetector = GestureDetector(context, object:SimpleOnGestureListener(){
+
+        override fun onDown(e: MotionEvent): Boolean {
+            return true // nécessaire !!!
+        }
+
+        override fun onLongPress(event: MotionEvent) {
+
+            super.onLongPress(event)
+            if (status == "ajouter_obj") {
+
+                posx = event.x
+                posy = event.y
+                //invalidate()
+                popup()
+                /*if(name != ""){
+                    graphe.addObject(idObjet, name, posx, posy)
+                    statusPopUp = "OK"
+                }*/
+                name ="" //On remet le nom a vide
+                idObjet++
+                //}
+
+            }
+            //return true
+        }
+    })
 
     override fun onTouchEvent(event: MotionEvent): Boolean {
         gestureDetector.onTouchEvent(event)
         // if(gestureDetector.onTouchEvent(event)) Comment récupérer un long press ??? et boucler dessus ??
-        if (status == "ajouter_obj") {
 
-                posx = event.x
-                posy = event.y
-                invalidate()
-                name = this.popup()
-                if(name != ""){
-                    graphe.addObject(this.idObjet, name, posx, posy)
-                }
-                name ="" //On remet le nom a vide
-                idObjet++
-            //}
-
-        }
         if (status == "connecter_obj") {
             invalidate()
             if (gestureListener.obj1 != null && gestureListener.obj2!! != null) {
@@ -59,6 +76,7 @@ class GraphView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
                 )
             }
             idConnexion++
+
         }
         //Log.e(status, " status en cours")
         return true
@@ -95,7 +113,7 @@ class GraphView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
         postInvalidate()
     }
 
-    fun popup() : String{
+    fun popup(){
         val builder: AlertDialog.Builder = AlertDialog.Builder(context)
         builder.setTitle("Nommez votre objet !")
 
@@ -112,11 +130,14 @@ class GraphView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
 
         // Set up the buttons
         builder.setPositiveButton("OK",
-            DialogInterface.OnClickListener { dialog, which -> name = input.text.toString() })
+            DialogInterface.OnClickListener { dialog, which ->
+                //Mettre en conformité le nom entré
+                graphe.addObject(input.text.toString(), posx, posy)
+                invalidate()
+            })
         builder.setNegativeButton("Cancel",
             DialogInterface.OnClickListener { dialog, which -> dialog.cancel() })
 
         builder.show()
-        return name
     }
 }
