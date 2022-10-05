@@ -134,6 +134,7 @@ class GraphView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
                 //Mettre en conformité le nom entré
                 graphe.addObject(input.text.toString(), posx, posy)
                 invalidate()
+                //Blabla
             })
         builder.setNegativeButton("Cancel",
             DialogInterface.OnClickListener { dialog, which -> dialog.cancel() })
