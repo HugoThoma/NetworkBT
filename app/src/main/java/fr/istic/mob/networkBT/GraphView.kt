@@ -86,26 +86,9 @@ class GraphView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
                     }
 
                 }
-
-                /*val rect1 = RectF(e1.x, width, e1.y, height)
-                val rect2 = RectF(e2.x, width, e2.y, height)
-                val obj1 = Objet("obj1", e1.x, e1.y, rect1)
-                val obj2 = Objet("obj2", e2.x, e2.y, rect2)
-                posx = e1.x
-                Log.i("posx", posx.toString())
-                posy = e1.y
-                Log.i("posy", posy.toString())
-                posx2 =e2.x
-                Log.i("posx2", posx2.toString())
-                posy2 =e2.y
-                Log.i("posy2", posy2.toString())
-                */
-
-
             }
             //addco(posx,posy,posx2,posy2)
             return super.onFling(e1, e2, distanceX, distanceY)
-
         }
         /*
         override fun onTouchEvent(event: MotionEvent): Boolean {
@@ -170,30 +153,7 @@ class GraphView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
 
     override fun onTouchEvent(event: MotionEvent): Boolean {
         gestureDetector.onTouchEvent(event)
-        /*
-        if (status == "connecter_obj") {
-            postInvalidate()
-            for (objet in graphe.myObjects.values) {
-                if (objet.rec.contains(posx, posy)) {
-                    var objet1 = objet
-                    for (objet2 in graphe.myObjects.values) {
-                        if (objet2.rec.contains(posx2, posy2)) {
-                            var cnx = Connexion(objet1, objet2)
-                            graphe.myConnexions.put(graphe.myConnexions.size + 1, cnx)
-                            Log.i("nb cnx", graphe.myConnexions.toString())
-                        }
-                    }
-                }
-                Log.i("oups", "rien trouvé")
-                var o1 = Objet("ob1", posx, posy, RectF(posx, width, posy, height))
-                var o2 = Objet("ob1", posx2, posy2, RectF(posx2, width, posy2, height))
-                var co = Connexion(o1, o2)
-                graphe.myConnexions.put(graphe.myConnexions.size + 1, co)
-            }
 
-        }
-        */
-        //Log.e(status, " status en cours")
         return true
     }
 
@@ -215,10 +175,10 @@ class GraphView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
             var y2 = gestureListener.obj2!!.py
             */
             Log.i("nb cnx",graphe.myConnexions.toString())
-            path.moveTo(posx,posy)
-            path.lineTo(posx2,posy2)
-            //canvas.drawLine(posx1, posy1, posx2, posy2, mPaint)
-            canvas.drawPath(path,mPaint)
+            //path.moveTo(connexion.objet1.px,connexion.objet1.py)
+            //path.lineTo(connexion.objet2.px,connexion.objet2.py)
+            canvas.drawLine(connexion.objet1.px, connexion.objet1.py, connexion.objet2.px, connexion.objet2.py, mPaint)
+            //canvas.drawPath(path,mPaint)
             //}
         }
 
