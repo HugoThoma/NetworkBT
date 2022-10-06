@@ -4,6 +4,7 @@ import android.app.AlertDialog
 import android.content.Context
 import android.content.DialogInterface
 import android.graphics.*
+import android.graphics.Paint
 import android.text.InputType
 import android.util.AttributeSet
 import android.util.Log
@@ -24,6 +25,7 @@ class GraphView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
     var posy2 = 0f
     var bmp: Bitmap? = null
     var mPaint: Paint = Paint()
+    var TxtPaint: Paint = Paint()
     var width = 30.0f
     var height = 30.0f
     var graphe: Graph = Graph()
@@ -32,7 +34,6 @@ class GraphView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
     var path = Path()
 
     var status = "default"
-    var statusPopUp = "KO"
 
     private var name : String = ""
 
@@ -56,9 +57,37 @@ class GraphView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
         }
         override fun onFling(e1: MotionEvent, e2: MotionEvent,distanceX: Float, distanceY: Float): Boolean
         {
-            Log.i("TAG", "onflig ")
+            Log.e("TAG", "onflig --------------------------------------")
             if (status == "connecter_obj") {
-                val rect1 = RectF(e1.x, width, e1.y, height)
+                for (objet in graphe.myObjects.values) {
+                    Log.e("Entré Bcl For", objet.etiquette)
+                    Log.e("Entré Bcl For", objet.px.toString())
+                    Log.e("E1", e1.x.toString())
+                    Log.e("Entré Bcl For", objet.py.toString())
+                    Log.e("E1", e1.y.toString())
+                    if (objet.px < e1.x + 15 && objet.px > e1.x -15){
+                        Log.e("X1 Trouvé", objet.px.toString())
+                        if(objet.py < e1.y + 15&& objet.py > e1.y -10){
+                            Log.e("Y1 Trouvé", objet.py.toString())
+                            for (objet2 in graphe.myObjects.values) {
+                                Log.e("Entré Bcl For 2", objet.etiquette)
+                                if (objet2.px < e2.x + 15 && objet2.px > e2.x -15) {
+                                    Log.e("X2 Trouvé", objet2.px.toString())
+                                    if (objet2.py < e2.y + 15 && objet2.py > e2.y -15) {
+                                        Log.e("Y2 Trouvé", objet2.py.toString())
+                                        var cnx = Connexion(objet, objet2)
+                                        graphe.myConnexions.put(graphe.myConnexions.size + 1, cnx)
+                                        Log.e("REUSSITE","Objet1 :"+ objet.etiquette + " | Objet2 : " + objet2.etiquette)
+                                        invalidate()
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                }
+
+                /*val rect1 = RectF(e1.x, width, e1.y, height)
                 val rect2 = RectF(e2.x, width, e2.y, height)
                 val obj1 = Objet("obj1", e1.x, e1.y, rect1)
                 val obj2 = Objet("obj2", e2.x, e2.y, rect2)
@@ -70,6 +99,7 @@ class GraphView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
                 Log.i("posx2", posx2.toString())
                 posy2 =e2.y
                 Log.i("posy2", posy2.toString())
+                */
 
 
             }
@@ -140,8 +170,7 @@ class GraphView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
 
     override fun onTouchEvent(event: MotionEvent): Boolean {
         gestureDetector.onTouchEvent(event)
-        // if(gestureDetector.onTouchEvent(event)) Comment récupérer un long press ??? et boucler dessus ??
-
+        /*
         if (status == "connecter_obj") {
             postInvalidate()
             for (objet in graphe.myObjects.values) {
@@ -161,18 +190,9 @@ class GraphView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
                 var co = Connexion(o1, o2)
                 graphe.myConnexions.put(graphe.myConnexions.size + 1, co)
             }
-            /*
-            if (gestureListener.obj1 != null && gestureListener.obj2!! != null) {
-                graphe.addConnexion(
-                    this.idConnexion,
-                    gestureListener.obj1!!,
-                    gestureListener.obj2!!
-                )
-            }
-            idConnexion++
-            */
 
         }
+        */
         //Log.e(status, " status en cours")
         return true
     }
@@ -183,6 +203,7 @@ class GraphView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
         for (dessin in graphe.myObjects.values) {
             if(dessin.etiquette != "") {
                 canvas.drawCircle(dessin.px, dessin.py, width, mPaint)
+                canvas.drawText(dessin.etiquette, dessin.px, dessin.py, TxtPaint)
             }
         }
         for (connexion in graphe.myConnexions.values) {
@@ -206,8 +227,13 @@ class GraphView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
 
 
     init {
+        val spSize = 12
+        val TxtSize = spSize * resources.displayMetrics.scaledDensity
         mPaint.color = Color.CYAN
         mPaint.style = Paint.Style.FILL_AND_STROKE
+        TxtPaint.color = Color.BLACK
+        TxtPaint.style = Paint.Style.FILL_AND_STROKE
+        TxtPaint.setTextSize(TxtSize)
     }
 
     fun reinitialize() {
