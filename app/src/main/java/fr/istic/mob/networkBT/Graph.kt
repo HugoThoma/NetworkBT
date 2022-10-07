@@ -9,15 +9,15 @@ class Graph {
   //private var noeuds : HashSet<>
 
      var myObjects: HashMap<String,Objet> = hashMapOf<String,Objet>()//stock tt les obj
-    var myConnexions : HashMap<Int,Connexion> = hashMapOf<Int,Connexion>()//stock tt les obj
+    var myConnexions : HashMap<String,Connexion> = hashMapOf<String,Connexion>()//stock tt les obj
 
      fun addObject(name : String, px: Float, py: Float, p: RectF){
           var objet = Objet(name,px,py,p)
          myObjects.put(name,objet)
      }
-    fun addConnexion(id : Int,ObjetDépart :Objet , ObjetArrivée:Objet){
-        var connexion = Connexion(ObjetDépart, ObjetArrivée)
-        myConnexions.put(id, connexion)
+    fun addConnexion(name : String,ObjetDépart :Objet , ObjetArrivée:Objet){
+        var connexion = Connexion(name, ObjetDépart, ObjetArrivée)
+        myConnexions.put(name, connexion)
     }
     fun Reinitialize(){
         myObjects.clear()
