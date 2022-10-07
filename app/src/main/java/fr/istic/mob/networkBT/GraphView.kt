@@ -26,6 +26,7 @@ class GraphView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
     var bmp: Bitmap? = null
     var mPaint: Paint = Paint()
     var TxtPaint: Paint = Paint()
+    var Trait : Paint = Paint()
     var width = 30.0f
     var height = 30.0f
     var graphe: Graph = Graph()
@@ -177,7 +178,7 @@ class GraphView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
             Log.i("nb cnx",graphe.myConnexions.toString())
             //path.moveTo(connexion.objet1.px,connexion.objet1.py)
             //path.lineTo(connexion.objet2.px,connexion.objet2.py)
-            canvas.drawLine(connexion.objet1.px, connexion.objet1.py, connexion.objet2.px, connexion.objet2.py, mPaint)
+            canvas.drawLine(connexion.objet1.px, connexion.objet1.py, connexion.objet2.px, connexion.objet2.py, Trait)
             //canvas.drawPath(path,mPaint)
             //}
         }
@@ -194,6 +195,9 @@ class GraphView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
         TxtPaint.color = Color.BLACK
         TxtPaint.style = Paint.Style.FILL_AND_STROKE
         TxtPaint.setTextSize(TxtSize)
+        Trait.strokeWidth= 12f
+        Trait.color = Color.GREEN
+        Trait.style = Paint.Style.FILL
     }
 
     fun reinitialize() {
