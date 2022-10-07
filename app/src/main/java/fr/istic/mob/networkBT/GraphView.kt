@@ -227,7 +227,7 @@ class GraphView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
                 //val p = PointF(posx,posy)
                 var rec = RectF(posx,width, posx,height)
                 graphe.addObject(input.text.toString(), posx, posy, rec)
-                invalidate()
+                invalidate() //blabla
             })
         builder.setNegativeButton("Cancel",
             DialogInterface.OnClickListener { dialog, which -> dialog.cancel() })
