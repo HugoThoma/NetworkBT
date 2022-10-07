@@ -146,7 +146,28 @@ class GraphView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
                     if (objet1 != null ){
                         temp.lineTo(event.x, event.y)
                     }
+                }
+            }
 
+            if(status == "modif") {
+                when (event.action and MotionEvent.ACTION_MASK) {
+                    MotionEvent.ACTION_DOWN -> {
+                        objet1 = ObjetProche(event.x, event.y)
+                    }
+                    MotionEvent.ACTION_UP -> {
+                        objet2 = ObjetProche(event.x, event.y)
+                        if (objet2 != null && objet1 != objet2 && objet1 != null) {
+                            var nameCo = popup()
+                            var cnx = Connexion(nameCo.toString(), objet1!!, objet2!!)
+                            graphe.myConnexions.put(nameCo.toString(), cnx)
+                        }
+                        temp.reset()
+                    }
+                    MotionEvent.ACTION_MOVE -> {
+                        if (objet1 != null) {
+                            temp.lineTo(event.x, event.y)
+                        }
+                    }
                 }
             }
         }
