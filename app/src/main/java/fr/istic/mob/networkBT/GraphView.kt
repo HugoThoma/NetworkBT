@@ -70,7 +70,7 @@ class GraphView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
                 Log.i("posx2", posx2.toString())
                 posy2 =e2.y
                 Log.i("posy2", posy2.toString())
-
+                addco(posx,posy,posx2,posy2)
 
             }
             //addco(posx,posy,posx2,posy2)
@@ -247,7 +247,7 @@ class GraphView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
     }
     fun addco(x1 :Float, y1: Float, x2:Float, y2:Float){
         if (status == "connecter_obj") {
-            postInvalidate()
+            invalidate()
             for (objet in graphe.myObjects.values){
                 if (objet.rec.contains(posx,posy)){
                     var objet1 = objet
