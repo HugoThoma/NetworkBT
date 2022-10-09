@@ -8,11 +8,11 @@ class Graph {
     // contient le descr du graphe des connexions: objet,conx,couleur, posi
   //private var noeuds : HashSet<>
 
-     var myObjects: HashMap<String,Objet> = hashMapOf<String,Objet>()//stock tt les obj
+    var myObjects: HashMap<String,Objet> = hashMapOf<String,Objet>()//stock tt les obj
     var myConnexions : HashMap<String,Connexion> = hashMapOf<String,Connexion>()//stock tt les obj
 
-     fun addObject(name : String, px: Float, py: Float, p: RectF){
-          var objet = Objet(name,px,py,p)
+     fun addObject(name : String, px: Float, py: Float){
+          var objet = Objet(name,px,py)
          myObjects.put(name,objet)
      }
     fun addConnexion(name : String,ObjetDépart :Objet , ObjetArrivée:Objet){

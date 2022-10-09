@@ -15,12 +15,7 @@ import androidx.appcompat.view.menu.MenuBuilder
 
 class MainActivity : AppCompatActivity() {
 
-//    lateinit var obj : MenuItem
-//    lateinit var connex : MenuItem
-//    lateinit var modifobj : MenuItem
-//    lateinit var modifcnx : MenuItem
-//
-//    var status = "init"
+
     lateinit var graphView : GraphView
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,7 +29,7 @@ class MainActivity : AppCompatActivity() {
         val menuInflater: MenuInflater = menuInflater
         menuInflater.inflate(R.menu.activity_main_menu, menu)
 
-        // If you want Icon display in Overflow Menu.
+        // Pour la suite au cas ou : If you want Icon display in Overflow Menu.
         // https://stackoverflow.com/questions/19750635/icon-in-menu-not-showing-in-android
         if (menu is MenuBuilder) {
             val m: MenuBuilder = menu as MenuBuilder

@@ -20,16 +20,18 @@ class GraphView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
 
     var posx = 0f
     var posy = 0f
+    var width = 30.0f
+    var height = 30.0f
+
     var mPaint: Paint = Paint()
     var TxtPaint: Paint = Paint()
     var Trait: Paint = Paint()
-    var width = 30.0f
-    var height = 30.0f
-    var graphe: Graph = Graph()
 
-    //var idObjet: Int = 0
+
+    var graphe: Graph = Graph()
     var path = Path()
     var temp = Path()
+
     var objet1: Objet? = null
     var objet2: Objet? = null
     var objetModif: Objet? = null
@@ -63,7 +65,6 @@ class GraphView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
                 distanceX: Float,
                 distanceY: Float
             ): Boolean {
-                //addco(posx,posy,posx2,posy2)
                 return super.onFling(e1, e2, distanceX, distanceY)
             }
 
@@ -116,12 +117,17 @@ class GraphView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
                 }
                 MotionEvent.ACTION_MOVE -> {
                     if (objetModif != null) {
-                        //Actualiser les coordonnées de l'objet
-                        var nomObj = objetModif!!.etiquette.toString()
-                        objetModif!!.px = event.x
-                        objetModif!!.py = event.y
-                        graphe.myObjects.set(nomObj, objetModif!!)
+                        // if x est dnas le screen faire tt ca
+                        if (event.x + width <= this.measuredWidth && event.y + width  <= this.measuredHeight
+                            && event.x + width >= 0 && event.y + width  >= 0) {
+                            //Actualiser les coordonnées de l'objet
+                            var nomObj = objetModif!!.etiquette.toString()
+                            objetModif!!.px = event.x
+                            objetModif!!.py = event.y
+                            graphe.myObjects.set(nomObj, objetModif!!)
+                        }
                     }
+
                 }
             }
         }
@@ -131,12 +137,14 @@ class GraphView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
     }
 
     override fun onDraw(canvas: Canvas) {
+        //dessin d'objet
         for (dessin in graphe.myObjects.values) {
             if (dessin.etiquette != "") {
                 canvas.drawCircle(dessin.px, dessin.py, width, mPaint)
                 canvas.drawText(dessin.etiquette, dessin.px, dessin.py, TxtPaint)
             }
         }
+        //dessin de connexion
         for (connexion in graphe.myConnexions.values) {
             Log.i("nb cnx", graphe.myConnexions.toString())
             path.moveTo(connexion.objet1.px, connexion.objet1.py)
@@ -189,49 +197,22 @@ class GraphView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
         val builder: AlertDialog.Builder = AlertDialog.Builder(context)
         builder.setTitle(resources.getString(R.string.PopUp))
 
-
-        // Set up the input
-
         // Set up the input
         val input = EditText(context)
-        // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
         // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
         input.inputType = InputType.TYPE_CLASS_TEXT //or InputType.TYPE_TEXT_VARIATION_PASSWORD
         builder.setView(input)
 
         // Set up the buttons
-
-        // Set up the buttons
         builder.setPositiveButton("OK",
             DialogInterface.OnClickListener { dialog, which ->
                 //Mettre en conformité le nom entré
-                //val p = PointF(posx,posy)
-                var rec = RectF(posx, width, posx, height)
                 if(status == "ajouter_obj") {
-                    graphe.addObject(input.text.toString(), posx, posy, rec)
+                    graphe.addObject(input.text.toString(), posx, posy)
                 } else if(status == "connecter_obj"){
-                    var cnx = Connexion(input.text.toString(), objet1!!, objet2!!)
-                    graphe.myConnexions.put(input.text.toString(), cnx)
-                } /*else if(status == "modifier_obj"){
-                    for (connexion in graphe.myConnexions.values) {
-                        if(connexion.objet1 == objetModif){
-                            var nameCo = connexion.name
-                            var objTempo = connexion.objet2
-                            graphe.myConnexions.remove(nameCo)
-                            var newCnx = Connexion(nameCo, objetModif!!, objTempo)
-                            graphe.myConnexions.put(nameCo, newCnx)
-                        } else if(connexion.objet2 == objetModif){
-                            var nameCo = connexion.name
-                            var objTempo = connexion.objet1
-                            graphe.myConnexions.remove(nameCo)
-                            var newCnx = Connexion(nameCo, objTempo,objetModif!!)
-                            graphe.myConnexions.put(nameCo, newCnx)
-                        }
-                    }
-                    graphe.myObjects.remove(objetModif!!.etiquette)
-                    graphe.addObject(input.text.toString(),objetModif!!.px, objetModif!!.py, rec)
-                }*/
-                invalidate() //blabla
+                    graphe.addConnexion(input.text.toString(),objet1!!, objet2!!)
+                }
+                invalidate()
             })
         builder.setNegativeButton("Cancel",
             DialogInterface.OnClickListener { dialog, which -> dialog.cancel() })

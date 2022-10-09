@@ -7,5 +7,4 @@ data class Objet(
     var etiquette : String,
     var px : Float,
     var py : Float,
-    val rec : RectF
 )
