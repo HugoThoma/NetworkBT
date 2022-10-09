@@ -14,11 +14,11 @@
                 android:title="@string/Mod_Object" />
             <item
                 android:id="@+id/modifierconnexion"
-                android:title="Mod_Cnx" />
+                android:title="@string/Mod_Cnx" />
         </menu>
     </item>
     <item
         android:id="@+id/reini"
         android:title="@string/Reini" />
-    <item android:title="Prochainement" />
+    <item android:title="@string/Soon" />
 </menu>

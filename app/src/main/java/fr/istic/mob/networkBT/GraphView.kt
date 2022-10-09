@@ -17,12 +17,9 @@ import android.widget.EditText
 
 class GraphView(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
 
-    val gestureListener: SimpleGestureListener = SimpleGestureListener()
 
     var posx = 0f
     var posy = 0f
-    var posx2 = 0f
-    var posy2 = 0f
     var mPaint: Paint = Paint()
     var TxtPaint: Paint = Paint()
     var Trait: Paint = Paint()
@@ -31,7 +28,6 @@ class GraphView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
     var graphe: Graph = Graph()
 
     //var idObjet: Int = 0
-    var idConnexion: Int = 0
     var path = Path()
     var temp = Path()
     var objet1: Objet? = null

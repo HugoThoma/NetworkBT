@@ -1,4 +1,4 @@
-package fr.istic.mob.networkBT
+/*package fr.istic.mob.networkBT
 
 import android.graphics.Bitmap
 import android.graphics.Paint
@@ -45,4 +45,4 @@ public class SimpleGestureListener : SimpleOnGestureListener() {
     override fun onDoubleTap(e: MotionEvent): Boolean {
         return super.onDoubleTap(e)
     }
-}
+}*/
