@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">NetworkBT</string>
+    <string name="Mode">Action</string>
+    <string name="Add_Object">Add object</string>
+    <string name="Add_Cnx">Add connexion</string>
+    <string name="Mod_Object">Modify object</string>
+    <string name="Mod_Cnx">Modify connexion</string>
+    <string name="Reini">Reinitialize</string>
+
+    <string name="PopUp">Give a name !</string>
+
+</resources>

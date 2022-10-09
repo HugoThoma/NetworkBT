@@ -70,65 +70,18 @@ class GraphView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
                 //addco(posx,posy,posx2,posy2)
                 return super.onFling(e1, e2, distanceX, distanceY)
             }
-            /*
-            override fun onTouchEvent(event: MotionEvent): Boolean {
-        when (event.action) {
-            MotionEvent.ACTION_DOWN -> {
-                startedDrawing = true
-                startPoint.x = event.x
-                startPoint.y = event.y
-                currentPoint.x = event.x
-                currentPoint.y = event.y
-                invalidate()
-            }
-            MotionEvent.ACTION_MOVE -> {
-                currentPoint.x = event.x
-                currentPoint.y = event.y
-                invalidate()
-            }
-            MotionEvent.ACTION_UP -> {
-                startedDrawing = false
-                invalidate()
-            }
-        }
-        return true
-    }
-        boolean drawRectangle = false;
-       PointF beginCoordinate;
-       PointF endCoordinate;
 
-       public boolean onTouch(View v, MotionEvent event) {
-          switch(event.getAction()) {
-             case MotionEvent.ACTION_DOWN:
-                drawRectangle = true; // Start drawing the rectangle
-                beginCoordinate.x = event.getX();
-                beginCoordinate.y = event.getY();
-                endCoordinate.x = event.getX();
-                endCoordinate.y = event.getY();
-                invalidate(); // Tell View that the canvas needs to be redrawn
-                break;
-             case MotionEvent.ACTION_MOVE:
-                endCoordinate.x = event.getX();
-                endCoordinate.y = event.getY();
-                invalidate(); // Tell View that the canvas needs to be redrawn
-                break;
-             case MotionEvent.ACTION_UP:
-                // Do something with the beginCoordinate and endCoordinate, like creating the 'final' object
-                drawRectangle = false; // Stop drawing the rectangle
-                invalidate(); // Tell View that the canvas needs to be redrawn
-                break;
-          }
-          return true;
-       }
-
-       protected void onDraw(Canvas canvas) {
-          if(drawRectangle) {
-             // Note: I assume you have the paint object defined in your class
-             canvas.drawRect(beginCoordinate.x, beginCoordinate.y, endCoordinate.x, endCoordinate.y, paint);
-          }
-       }
-    }
-    */
+            override fun onDoubleTapEvent(e: MotionEvent?): Boolean {
+                if (status=="modifier_obj"){
+                    if (e != null) {
+                        objetModif = ObjetProche(e.x, e.y)
+                    }
+                    if (objet1 !== null) {
+                        popup()
+                    }
+                }
+                    return super.onDoubleTapEvent(e)
+                }
         })
 
     override fun onTouchEvent(event: MotionEvent): Boolean {
@@ -213,7 +166,7 @@ class GraphView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
         mPaint.style = Paint.Style.FILL_AND_STROKE
         TxtPaint.color = Color.BLACK
         TxtPaint.style = Paint.Style.FILL_AND_STROKE
-        TxtPaint.setTextSize(TxtSize)
+        TxtPaint.textSize = TxtSize
         Trait.strokeWidth = 12f
         Trait.color = Color.GREEN
         Trait.style = Paint.Style.STROKE
@@ -238,7 +191,8 @@ class GraphView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
 
     fun popup() {
         val builder: AlertDialog.Builder = AlertDialog.Builder(context)
-        builder.setTitle("Donnez un nom !")
+        builder.setTitle(resources.getString(R.string.PopUp))
+
 
         // Set up the input
 
@@ -262,7 +216,25 @@ class GraphView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
                 } else if(status == "connecter_obj"){
                     var cnx = Connexion(input.text.toString(), objet1!!, objet2!!)
                     graphe.myConnexions.put(input.text.toString(), cnx)
-                }
+                } /*else if(status == "modifier_obj"){
+                    for (connexion in graphe.myConnexions.values) {
+                        if(connexion.objet1 == objetModif){
+                            var nameCo = connexion.name
+                            var objTempo = connexion.objet2
+                            graphe.myConnexions.remove(nameCo)
+                            var newCnx = Connexion(nameCo, objetModif!!, objTempo)
+                            graphe.myConnexions.put(nameCo, newCnx)
+                        } else if(connexion.objet2 == objetModif){
+                            var nameCo = connexion.name
+                            var objTempo = connexion.objet1
+                            graphe.myConnexions.remove(nameCo)
+                            var newCnx = Connexion(nameCo, objTempo,objetModif!!)
+                            graphe.myConnexions.put(nameCo, newCnx)
+                        }
+                    }
+                    graphe.myObjects.remove(objetModif!!.etiquette)
+                    graphe.addObject(input.text.toString(),objetModif!!.px, objetModif!!.py, rec)
+                }*/
                 invalidate() //blabla
             })
         builder.setNegativeButton("Cancel",

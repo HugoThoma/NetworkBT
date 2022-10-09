@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:title="Mode">
+    <item android:title="@string/Mode">
         <menu>
             <item
                 android:id="@+id/objet"
-                android:title="Ajout Objet" />
+                android:title="@string/Add_Object" />
             <item
                 android:id="@+id/connecter"
-                android:title="Ajout Connexion" />
+                android:title="@string/Add_Cnx" />
             <item
                 android:id="@+id/modifierobjet"
-                android:title="Modifier un objet" />
+                android:title="@string/Mod_Object" />
             <item
                 android:id="@+id/modifierconnexion"
-                android:title="Modifier une connexion" />
+                android:title="Mod_Cnx" />
         </menu>
     </item>
     <item
         android:id="@+id/reini"
-        android:title="Réinitialiser " />
+        android:title="@string/Reini" />
     <item android:title="Prochainement" />
 </menu>
