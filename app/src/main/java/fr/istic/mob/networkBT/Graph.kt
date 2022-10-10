@@ -1,13 +1,18 @@
 package fr.istic.mob.networkBT
 
+import android.graphics.Color
 import android.graphics.PointF
 import android.graphics.RectF
 import android.util.Log
+import java.util.*
+import kotlin.collections.HashMap
 
 class Graph {
     // contient le descr du graphe des connexions: objet,conx,couleur, posi
   //private var noeuds : HashSet<>
-
+    var colorofobject = Color.CYAN
+    var colorofpath = Color.GREEN
+    var strokeWidth = 12f
     var myObjects: HashMap<String,Objet> = hashMapOf<String,Objet>()//stock tt les obj
     var myConnexions : HashMap<String,Connexion> = hashMapOf<String,Connexion>()//stock tt les obj
 

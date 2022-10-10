@@ -1,4 +1,5 @@
 package fr.istic.mob.networkBT
 
-class Colors {
+enum class Colors {
+    RED , GREEN , BLUE , YELLOW , CYAN , MAGENTA , BLACK
 }

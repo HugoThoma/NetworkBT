@@ -57,6 +57,9 @@ class GraphView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
                     popup()
                     name = "" //On remet le nom a vide
                 }
+                // modifier objet
+
+                // modifier conx
             }
 
             override fun onFling(
@@ -118,8 +121,8 @@ class GraphView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
                 MotionEvent.ACTION_MOVE -> {
                     if (objetModif != null) {
                         // if x est dnas le screen faire tt ca
-                        if (event.x + width <= this.measuredWidth && event.y + width  <= this.measuredHeight
-                            && event.x + width >= 0 && event.y + width  >= 0) {
+                        if (event.x + width <= this.measuredWidth && event.y - width/2 <= this.measuredHeight
+                            && event.x + width >= 0 && event.y - width/2  >= 0) {
                             //Actualiser les coordonnées de l'objet
                             var nomObj = objetModif!!.etiquette.toString()
                             objetModif!!.px = event.x
@@ -164,15 +167,14 @@ class GraphView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
 
 
     init {
-        val spSize = 12
-        val TxtSize = spSize * resources.displayMetrics.scaledDensity
-        mPaint.color = Color.CYAN
+        val TxtSize = 12 * resources.displayMetrics.scaledDensity
+        mPaint.color = graphe.colorofobject
         mPaint.style = Paint.Style.FILL_AND_STROKE
         TxtPaint.color = Color.BLACK
         TxtPaint.style = Paint.Style.FILL_AND_STROKE
         TxtPaint.textSize = TxtSize
-        Trait.strokeWidth = 12f
-        Trait.color = Color.GREEN
+        Trait.strokeWidth = graphe.strokeWidth
+        Trait.color = graphe.colorofpath
         Trait.style = Paint.Style.STROKE
     }
 
@@ -218,4 +220,5 @@ class GraphView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
             DialogInterface.OnClickListener { dialog, which -> dialog.cancel() })
         builder.show()
     }
+
 }

@@ -7,8 +7,12 @@
     <string name="Mod_Object">Modify object</string>
     <string name="Mod_Cnx">Modify connexion</string>
     <string name="Reini">Reinitialize</string>
-    <string name="Soon">Soon</string>
+    <string name="save">Save</string>
+    <string name="load">Load</string>
+    <string name="plan">Change the plan</string>
+    <string name="mail">Share</string>
 
     <string name="PopUp">Give a name !</string>
+    <string name="PopuPlan">Choose a plan !</string>
 
 </resources>

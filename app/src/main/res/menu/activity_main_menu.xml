@@ -20,5 +20,26 @@
     <item
         android:id="@+id/reini"
         android:title="@string/Reini" />
-    <item android:title="@string/Soon" />
+    <item
+        android:id="@+id/sauver"
+        android:title="@string/save" />
+    <item
+        android:id="@+id/load"
+        android:title="@string/load" ></item>
+    <item
+        android:id="@+id/plan"
+        android:title="@string/plan" >
+        <menu >
+            <item
+                android:id="@+id/plan1"
+                android:title="Plan 1" />
+            <item
+                android:id="@+id/plan2"
+                android:title="Plan 2" />
+        </menu>
+    </item>
+    <item
+        android:id="@+id/mail"
+        android:title="@string/mail" />
+
 </menu>
