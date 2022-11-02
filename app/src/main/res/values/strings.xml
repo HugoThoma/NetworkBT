@@ -12,6 +12,24 @@
     <string name="mail">Partager par mail</string>
 
 
+    <string name="obj_title">Objet</string>
+    <string name="obj_name">Nom</string>
+    <string name="obj_image">Image</string>
+    <string name="cnx_title">Connexion</string>
+    <string name="cnx_name">Nom</string>
+    <string name="cnx_width">Épaisseur</string>
+    <string name="color">Couleur</string>
+    <string name="red">Rouge</string>
+    <string name="green">Vert</string>
+    <string name="blue">Bleu</string>
+    <string name="orange">Orange</string>
+    <string name="cyan">Cyan</string>
+    <string name="pink">Magenta</string>
+    <string name="black">Noir</string>
+
+
+    <string name="validate">Valider</string>
+    <string name="cancel">Annuler</string>
 
     <string name="PopUp">Donnez un nom !</string>
     <string name="PopuPlan">Choisissez un plan !</string>

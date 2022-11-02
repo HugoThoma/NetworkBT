@@ -1,6 +1,7 @@
 package fr.istic.mob.networkBT
 
 import android.app.AlertDialog
+import android.app.Dialog
 import android.content.Context
 import android.content.DialogInterface
 import android.graphics.*
@@ -12,7 +13,8 @@ import android.view.GestureDetector
 import android.view.GestureDetector.SimpleOnGestureListener
 import android.view.MotionEvent
 import android.view.View
-import android.widget.EditText
+import android.view.Window
+import android.widget.*
 
 
 class GraphView(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
@@ -54,7 +56,7 @@ class GraphView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
 
                     posx = event.x
                     posy = event.y
-                    popup()
+                    popup_objet()
                     name = "" //On remet le nom a vide
                 }
                 // modifier objet
@@ -97,8 +99,9 @@ class GraphView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
                 MotionEvent.ACTION_UP -> {
                     objet2 = ObjetProche(event.x, event.y)
                     if (objet2 != null && objet1 != objet2 && objet1 != null) {
-                        var nameCo = popup()
-
+                        //var nameCo = popup()
+                        //popup()
+                        popup_connexion()
                     }
                     temp.reset()
                 }
@@ -210,9 +213,9 @@ class GraphView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
             DialogInterface.OnClickListener { dialog, which ->
                 //Mettre en conformité le nom entré
                 if(status == "ajouter_obj") {
-                    graphe.addObject(input.text.toString(), posx, posy)
+                    graphe.addObject(input.text.toString(),mPaint,"null", posx, posy)
                 } else if(status == "connecter_obj"){
-                    graphe.addConnexion(input.text.toString(),objet1!!, objet2!!)
+                    graphe.addConnexion(input.text.toString(),Trait, 1F,objet1!!, objet2!!)
                 }
                 invalidate()
             })
@@ -221,4 +224,85 @@ class GraphView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
         builder.show()
     }
 
+    fun popup_objet() {
+
+        val dialog = Dialog(context)
+        //We have added a title in the custom layout. So let's disable the default title.
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        //The user will be able to cancel the dialog bu clicking anywhere outside the dialog.
+        dialog.setCancelable(true)
+        //Mention the name of the layout of your custom dialog.
+        dialog.setContentView(R.layout.dialog_object)
+
+        //Initializing the views of the dialog.
+        val name_obj = dialog.findViewById<EditText>(R.id.obj_name)
+        //Radio btn + image a ajouter
+        val submitButton = dialog.findViewById<Button>(R.id.Btn_validate)
+        val cancelButton = dialog.findViewById<Button>(R.id.Btn_cancel)
+        submitButton.setOnClickListener {
+            //val name = name_obj.text.toString()
+            //Radio btn + image a ajouter
+            graphe.addObject(name_obj.text.toString(),mPaint,"null", posx, posy)
+            invalidate()
+            dialog.dismiss()
+        }
+        cancelButton.setOnClickListener {
+            dialog.dismiss()
+        }
+        dialog.show()
+    }
+
+    fun popup_connexion() {
+
+        val dialog = Dialog(context)
+        //We have added a title in the custom layout. So let's disable the default title.
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        //The user will be able to cancel the dialog bu clicking anywhere outside the dialog.
+        dialog.setCancelable(true)
+        //Mention the name of the layout of your custom dialog.
+        dialog.setContentView(R.layout.dialog_cnx)
+
+        //Initializing the views of the dialog.
+        val name = dialog.findViewById<EditText>(R.id.cnx_name)
+        val seekBar = dialog.findViewById<SeekBar>(R.id.seekBar)
+        val indicateur_SeekBar = dialog.findViewById<TextView>(R.id.connexion_width)
+        //Radio btn + image a ajouter
+        val submitButton = dialog.findViewById<Button>(R.id.Btn_validate)
+        val cancelButton = dialog.findViewById<Button>(R.id.Btn_cancel)
+
+        seekBar?.setOnSeekBarChangeListener(object :
+            SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(seek: SeekBar,
+                                           progress: Int, fromUser: Boolean) {
+                // write custom code for progress is changed
+                indicateur_SeekBar.text = progress.toString()
+            }
+
+            override fun onStartTrackingTouch(seek: SeekBar) {
+                // write custom code for progress is started
+            }
+
+            override fun onStopTrackingTouch(seek: SeekBar) {
+                // write custom code for progress is stopped
+                /*Toast.makeText(context,
+                    "Progress is: " + seek.progress.toFloat() + "%",
+                    Toast.LENGTH_SHORT).show()*/
+            }
+        })
+
+        submitButton.setOnClickListener {
+            //val name = name_obj.text.toString()
+            //Radio btn + image a ajouter
+            graphe.addConnexion(name.text.toString(),Trait,
+                seekBar.progress.toFloat(),objet1!!, objet2!!)
+            invalidate()
+            dialog.dismiss()
+        }
+        cancelButton.setOnClickListener {
+            dialog.dismiss()
+        }
+        dialog.show()
+    }
+
 }
+

@@ -1,6 +1,7 @@
 package fr.istic.mob.networkBT
 
 import android.graphics.Color
+import android.graphics.Paint
 import android.graphics.PointF
 import android.graphics.RectF
 import android.util.Log
@@ -16,12 +17,12 @@ class Graph {
     var myObjects: HashMap<String,Objet> = hashMapOf<String,Objet>()//stock tt les obj
     var myConnexions : HashMap<String,Connexion> = hashMapOf<String,Connexion>()//stock tt les obj
 
-     fun addObject(name : String, px: Float, py: Float){
-          var objet = Objet(name,px,py)
+     fun addObject(name : String, color : Paint,image: String, px: Float, py: Float){
+          var objet = Objet(name,color,image,px,py)
          myObjects.put(name,objet)
      }
-    fun addConnexion(name : String,ObjetDépart :Objet , ObjetArrivée:Objet){
-        var connexion = Connexion(name, ObjetDépart, ObjetArrivée)
+    fun addConnexion(name : String, color : Paint,epaisseur: Float, ObjetDépart :Objet, ObjetArrivée:Objet){
+        var connexion = Connexion(name, color,epaisseur, ObjetDépart, ObjetArrivée)
         myConnexions.put(name, connexion)
     }
     fun Reinitialize(){
