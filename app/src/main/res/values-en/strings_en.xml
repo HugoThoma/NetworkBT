@@ -15,6 +15,7 @@
     <string name="obj_title">Object</string>
     <string name="obj_name">Name</string>
     <string name="obj_image">Image</string>
+    <string name="incomplete">Please enter all information</string>
     <string name="cnx_title">Connexion</string>
     <string name="cnx_name">Nom</string>
     <string name="cnx_width">Width</string>
@@ -22,7 +23,7 @@
     <string name="red">Red</string>
     <string name="green">Green</string>
     <string name="blue">Blue</string>
-    <string name="orange">Orange</string>
+    <string name="yellow">Yellow</string>
     <string name="cyan">Cyan</string>
     <string name="pink">Pink</string>
     <string name="black">Black</string>

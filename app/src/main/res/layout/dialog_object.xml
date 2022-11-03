@@ -34,7 +34,7 @@
         android:id="@+id/Btn_validate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="144dp"
+        android:layout_marginStart="124dp"
         android:layout_marginTop="552dp"
         android:text="@string/validate"
         app:layout_constraintStart_toStartOf="parent"
@@ -44,7 +44,7 @@
         android:id="@+id/Btn_cancel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="248dp"
+        android:layout_marginStart="232dp"
         android:layout_marginTop="552dp"
         android:text="@string/cancel"
         app:layout_constraintStart_toStartOf="parent"
@@ -61,67 +61,35 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <RadioGroup
-        android:id="@+id/obj_color"
-        android:layout_width="131dp"
-        android:layout_height="349dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="191dp"
+    <TextView
+        android:id="@+id/selected_color"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="124dp"
+        android:layout_marginTop="204dp"
+        android:textSize="34sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <SeekBar
+        android:id="@+id/seekBar_color"
+        android:layout_width="327dp"
+        android:layout_height="43dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="261dp"
+        android:max="6"
+        android:progress="1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0">
-
-        <RadioButton
-            android:id="@+id/cnx_rb1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/red" />
-
-        <RadioButton
-            android:id="@+id/cnx_rb2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/green" />
-
-        <RadioButton
-            android:id="@+id/cnx_rb3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/blue" />
-
-        <RadioButton
-            android:id="@+id/cnx_rb4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/orange" />
-
-        <RadioButton
-            android:id="@+id/cnx_rb5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/cyan" />
-
-        <RadioButton
-            android:id="@+id/cnx_rb6"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/pink" />
-
-        <RadioButton
-            android:id="@+id/cnx_rb7"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/black" />
-
-    </RadioGroup>
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/titre_couleur2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="197dp"
-        android:layout_marginTop="140dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="348dp"
         android:text="@string/obj_image"
         android:textSize="34sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -129,13 +97,14 @@
 
     <RadioGroup
         android:id="@+id/obj_img"
-        android:layout_width="131dp"
-        android:layout_height="349dp"
-        android:layout_marginStart="212dp"
+        android:layout_width="290dp"
+        android:layout_height="96dp"
+        android:layout_marginStart="28dp"
         android:layout_marginTop="191dp"
+        android:layout_marginBottom="72dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.925" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -15,9 +15,10 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.Window
 import android.widget.*
+import android.widget.RadioGroup
+import androidx.appcompat.app.AppCompatActivity
 
-
-class GraphView(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
+class GraphView(context: Context?, attrs: AttributeSet?) : View(context, attrs)  {
 
 
     var posx = 0f
@@ -79,7 +80,7 @@ class GraphView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
                         objetModif = ObjetProche(e.x, e.y)
                     }
                     if (objet1 !== null) {
-                        popup()
+                        popup_objet()
                     }
                 }
                     return super.onDoubleTapEvent(e)
@@ -146,8 +147,9 @@ class GraphView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
         //dessin d'objet
         for (dessin in graphe.myObjects.values) {
             if (dessin.etiquette != "") {
-                canvas.drawCircle(dessin.px, dessin.py, width, mPaint)
+                canvas.drawCircle(dessin.px, dessin.py, width, dessin.couleur)
                 canvas.drawText(dessin.etiquette, dessin.px, dessin.py, TxtPaint)
+                Log.e("COULEUR : ", dessin.etiquette + dessin.couleur.toString())
             }
         }
         //dessin de connexion
@@ -156,7 +158,7 @@ class GraphView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
             path.moveTo(connexion.objet1.px, connexion.objet1.py)
             path.lineTo(connexion.objet2.px, connexion.objet2.py)
             //canvas.drawLine(connexion.objet1.px, connexion.objet1.py, connexion.objet2.px, connexion.objet2.py, Trait)
-            canvas.drawPath(path, Trait)
+            canvas.drawPath(path, connexion.color)
             canvas.drawText(
                 connexion.name,
                 (connexion.objet1.px + connexion.objet2.px) / 2,
@@ -171,13 +173,13 @@ class GraphView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
 
     init {
         val TxtSize = 12 * resources.displayMetrics.scaledDensity
-        mPaint.color = graphe.colorofobject
+        //mPaint.color = graphe.colorofobject
         mPaint.style = Paint.Style.FILL_AND_STROKE
         TxtPaint.color = Color.BLACK
         TxtPaint.style = Paint.Style.FILL_AND_STROKE
         TxtPaint.textSize = TxtSize
         Trait.strokeWidth = graphe.strokeWidth
-        Trait.color = graphe.colorofpath
+        //Trait.color = graphe.colorofpath
         Trait.style = Paint.Style.STROKE
     }
 
@@ -198,32 +200,6 @@ class GraphView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
         return null
     }
 
-    fun popup() {
-        val builder: AlertDialog.Builder = AlertDialog.Builder(context)
-        builder.setTitle(resources.getString(R.string.PopUp))
-
-        // Set up the input
-        val input = EditText(context)
-        // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
-        input.inputType = InputType.TYPE_CLASS_TEXT //or InputType.TYPE_TEXT_VARIATION_PASSWORD
-        builder.setView(input)
-
-        // Set up the buttons
-        builder.setPositiveButton("OK",
-            DialogInterface.OnClickListener { dialog, which ->
-                //Mettre en conformité le nom entré
-                if(status == "ajouter_obj") {
-                    graphe.addObject(input.text.toString(),mPaint,"null", posx, posy)
-                } else if(status == "connecter_obj"){
-                    graphe.addConnexion(input.text.toString(),Trait, 1F,objet1!!, objet2!!)
-                }
-                invalidate()
-            })
-        builder.setNegativeButton("Cancel",
-            DialogInterface.OnClickListener { dialog, which -> dialog.cancel() })
-        builder.show()
-    }
-
     fun popup_objet() {
 
         val dialog = Dialog(context)
@@ -237,9 +213,96 @@ class GraphView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
         //Initializing the views of the dialog.
         val name_obj = dialog.findViewById<EditText>(R.id.obj_name)
         //Radio btn + image a ajouter
+        val color_SeekBar = dialog.findViewById<SeekBar>(R.id.seekBar_color)
+        val color_text = dialog.findViewById<TextView>(R.id.selected_color)
+        //Couleur par défaut
+        color_text.text= resources.getString(R.string.green)
+        color_text.setTextColor(Color.parseColor("#008000"))
+        mPaint.color = Color.GREEN
+
+        color_SeekBar?.setOnSeekBarChangeListener(object :
+            SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(seek: SeekBar,
+                                           progress: Int, fromUser: Boolean) {
+                // write custom code for progress is changed
+                when(progress){
+                    0->{
+                        color_text.text= resources.getString(R.string.red)
+                        color_text.setTextColor(Color.parseColor("#FF0000"))
+                        mPaint.color = Color.RED
+                    }
+                    1->{
+                        color_text.text= resources.getString(R.string.green)
+                        color_text.setTextColor(Color.parseColor("#008000"))
+                        mPaint.color = Color.GREEN
+                    }
+                    2->{
+                        color_text.text= resources.getString(R.string.blue)
+                        color_text.setTextColor(Color.parseColor("#0000FF"))
+                        mPaint.color = Color.BLUE
+                    }
+                    3->{
+                        color_text.text= resources.getString(R.string.yellow)
+                        color_text.setTextColor(Color.parseColor("#FFFF00"))
+                        mPaint.color = Color.YELLOW
+                    }
+                    4->{
+                        color_text.text= resources.getString(R.string.cyan)
+                        color_text.setTextColor(Color.parseColor("#E0FFFF"))
+                        mPaint.color = Color.CYAN
+                    }
+                    5->{
+                        color_text.text= resources.getString(R.string.pink)
+                        color_text.setTextColor(Color.parseColor("#FF00FF"))
+                        mPaint.color = Color.MAGENTA
+                    }
+                    6->{
+                        color_text.text= resources.getString(R.string.black)
+                        color_text.setTextColor(Color.parseColor("#000000"))
+                        mPaint.color = Color.BLACK
+                    }
+                }
+            }
+
+            override fun onStartTrackingTouch(seek: SeekBar) {
+                // write custom code for progress is started
+            }
+
+            override fun onStopTrackingTouch(seek: SeekBar) {
+                // write custom code for progress is stopped
+                /*Toast.makeText(context,
+                    "Progress is: " + seek.progress.toFloat() + "%",
+                    Toast.LENGTH_SHORT).show()*/
+                when(seek.progress){
+                    0->{
+                        mPaint.color = Color.RED
+                    }
+                    1->{
+                        mPaint.color = Color.GREEN
+                    }
+                    2->{
+                        mPaint.color = Color.BLUE
+                    }
+                    3->{
+                        mPaint.color = Color.YELLOW
+                    }
+                    4->{
+                        mPaint.color = Color.CYAN
+                    }
+                    5->{
+                        mPaint.color = Color.MAGENTA
+                    }
+                    6->{
+                        mPaint.color = Color.BLACK
+                    }
+                }
+            }
+        })
+
         val submitButton = dialog.findViewById<Button>(R.id.Btn_validate)
         val cancelButton = dialog.findViewById<Button>(R.id.Btn_cancel)
         submitButton.setOnClickListener {
+
             //val name = name_obj.text.toString()
             //Radio btn + image a ajouter
             graphe.addObject(name_obj.text.toString(),mPaint,"null", posx, posy)
@@ -266,10 +329,6 @@ class GraphView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
         val name = dialog.findViewById<EditText>(R.id.cnx_name)
         val seekBar = dialog.findViewById<SeekBar>(R.id.seekBar)
         val indicateur_SeekBar = dialog.findViewById<TextView>(R.id.connexion_width)
-        //Radio btn + image a ajouter
-        val submitButton = dialog.findViewById<Button>(R.id.Btn_validate)
-        val cancelButton = dialog.findViewById<Button>(R.id.Btn_cancel)
-
         seekBar?.setOnSeekBarChangeListener(object :
             SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seek: SeekBar,
@@ -290,6 +349,97 @@ class GraphView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
             }
         })
 
+        val cnx_color_SeekBar = dialog.findViewById<SeekBar>(R.id.seekBar2)
+        val cnx_color_text = dialog.findViewById<TextView>(R.id.cnx_selected_color)
+        //Couleur par défaut
+        cnx_color_text.text= resources.getString(R.string.green)
+        cnx_color_text.setTextColor(Color.parseColor("#008000"))
+        Trait.color = Color.GREEN
+
+        cnx_color_SeekBar?.setOnSeekBarChangeListener(object :
+            SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(seek: SeekBar,
+                                           progress: Int, fromUser: Boolean) {
+                // write custom code for progress is changed
+                when(progress){
+                    0->{
+                        cnx_color_text.text= resources.getString(R.string.red)
+                        cnx_color_text.setTextColor(Color.parseColor("#FF0000"))
+                        Trait.color = Color.RED
+                    }
+                    1->{
+                        cnx_color_text.text= resources.getString(R.string.green)
+                        cnx_color_text.setTextColor(Color.parseColor("#008000"))
+                        Trait.color = Color.GREEN
+                    }
+                    2->{
+                        cnx_color_text.text= resources.getString(R.string.blue)
+                        cnx_color_text.setTextColor(Color.parseColor("#0000FF"))
+                        Trait.color = Color.BLUE
+                    }
+                    3->{
+                        cnx_color_text.text= resources.getString(R.string.yellow)
+                        cnx_color_text.setTextColor(Color.parseColor("#FFFF00"))
+                        Trait.color = Color.YELLOW
+                    }
+                    4->{
+                        cnx_color_text.text= resources.getString(R.string.cyan)
+                        cnx_color_text.setTextColor(Color.parseColor("#E0FFFF"))
+                        Trait.color = Color.CYAN
+                    }
+                    5->{
+                        cnx_color_text.text= resources.getString(R.string.pink)
+                        cnx_color_text.setTextColor(Color.parseColor("#FF00FF"))
+                        Trait.color = Color.MAGENTA
+                    }
+                    6->{
+                        cnx_color_text.text= resources.getString(R.string.black)
+                        cnx_color_text.setTextColor(Color.parseColor("#000000"))
+                        Trait.color = Color.BLACK
+                    }
+                }
+            }
+
+            override fun onStartTrackingTouch(seek: SeekBar) {
+                // write custom code for progress is started
+            }
+
+            override fun onStopTrackingTouch(seek: SeekBar) {
+                // write custom code for progress is stopped
+                /*Toast.makeText(context,
+                    "Progress is: " + seek.progress.toFloat() + "%",
+                    Toast.LENGTH_SHORT).show()*/
+                when(seek.progress){
+                    0->{
+                        Trait.color = Color.RED
+                    }
+                    1->{
+                        Trait.color = Color.GREEN
+                    }
+                    2->{
+                        Trait.color = Color.BLUE
+                    }
+                    3->{
+                        Trait.color = Color.YELLOW
+                    }
+                    4->{
+                        Trait.color = Color.CYAN
+                    }
+                    5->{
+                        Trait.color = Color.MAGENTA
+                    }
+                    6->{
+                        Trait.color = Color.BLACK
+                    }
+                }
+            }
+        })
+
+        val submitButton = dialog.findViewById<Button>(R.id.Btn_validate)
+        val cancelButton = dialog.findViewById<Button>(R.id.Btn_cancel)
+
+
+
         submitButton.setOnClickListener {
             //val name = name_obj.text.toString()
             //Radio btn + image a ajouter
@@ -303,6 +453,7 @@ class GraphView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
         }
         dialog.show()
     }
+
 
 }
 
