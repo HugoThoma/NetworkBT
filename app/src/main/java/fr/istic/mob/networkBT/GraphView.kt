@@ -1,12 +1,8 @@
 package fr.istic.mob.networkBT
 
-import android.app.AlertDialog
 import android.app.Dialog
 import android.content.Context
-import android.content.DialogInterface
 import android.graphics.*
-import android.graphics.Paint
-import android.text.InputType
 import android.util.AttributeSet
 import android.util.Log
 import android.view.GestureDetector
@@ -15,8 +11,7 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.Window
 import android.widget.*
-import android.widget.RadioGroup
-import androidx.appcompat.app.AppCompatActivity
+
 
 class GraphView(context: Context?, attrs: AttributeSet?) : View(context, attrs)  {
 
@@ -155,6 +150,7 @@ class GraphView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
         //dessin de connexion
         for (connexion in graphe.myConnexions.values) {
             Log.i("nb cnx", graphe.myConnexions.toString())
+
             path.moveTo(connexion.objet1.px, connexion.objet1.py)
             path.lineTo(connexion.objet2.px, connexion.objet2.py)
             //canvas.drawLine(connexion.objet1.px, connexion.objet1.py, connexion.objet2.px, connexion.objet2.py, Trait)
@@ -334,7 +330,11 @@ class GraphView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
             override fun onProgressChanged(seek: SeekBar,
                                            progress: Int, fromUser: Boolean) {
                 // write custom code for progress is changed
-                indicateur_SeekBar.text = progress.toString()
+                //Affichage de l'épaisseur
+                var prog : Float = (progress).toFloat()
+                prog /= 2
+                indicateur_SeekBar.text = prog.toString()
+
             }
 
             override fun onStartTrackingTouch(seek: SeekBar) {
@@ -343,9 +343,7 @@ class GraphView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
 
             override fun onStopTrackingTouch(seek: SeekBar) {
                 // write custom code for progress is stopped
-                /*Toast.makeText(context,
-                    "Progress is: " + seek.progress.toFloat() + "%",
-                    Toast.LENGTH_SHORT).show()*/
+                Trait.strokeWidth = seek.progress.toFloat()/2
             }
         })
 
