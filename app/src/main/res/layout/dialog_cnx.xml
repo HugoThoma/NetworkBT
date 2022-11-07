@@ -30,8 +30,8 @@
 
     <EditText
         android:id="@+id/cnx_name"
-        android:layout_width="327dp"
-        android:layout_height="57dp"
+        android:layout_width="336dp"
+        android:layout_height="54dp"
         android:layout_marginStart="28dp"
         android:layout_marginTop="70dp"
         android:ems="10"
@@ -45,17 +45,31 @@
         android:id="@+id/Btn_validate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="92dp"
+        android:layout_marginStart="140dp"
         android:layout_marginTop="504dp"
         android:text="@string/validate"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
+        android:id="@+id/btn_delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="504dp"
+        android:background="#FF0000"
+        android:forceDarkAllowed="true"
+        android:text="@string/delete"
+        android:textColor="@color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="TextContrastCheck" />
+
+    <Button
         android:id="@+id/Btn_cancel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="220dp"
+        android:layout_marginStart="244dp"
         android:layout_marginTop="504dp"
         android:text="@string/cancel"
         app:layout_constraintStart_toStartOf="parent"

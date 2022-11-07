@@ -31,6 +31,7 @@
 
     <string name="validate">Valider</string>
     <string name="cancel">Annuler</string>
+    <string name="delete">Supprimer</string>
 
     <string name="PopUp">Donnez un nom !</string>
     <string name="PopuPlan">Choisissez un plan !</string>

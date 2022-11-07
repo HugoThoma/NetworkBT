@@ -34,17 +34,31 @@
         android:id="@+id/Btn_validate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="124dp"
+        android:layout_marginStart="140dp"
         android:layout_marginTop="552dp"
         android:text="@string/validate"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
+        android:id="@+id/btn_delete2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="552dp"
+        android:background="#FF0000"
+        android:forceDarkAllowed="true"
+        android:text="@string/delete"
+        android:textColor="@color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="TextContrastCheck" />
+
+    <Button
         android:id="@+id/Btn_cancel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="232dp"
+        android:layout_marginStart="248dp"
         android:layout_marginTop="552dp"
         android:text="@string/cancel"
         app:layout_constraintStart_toStartOf="parent"

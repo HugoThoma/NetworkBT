@@ -31,6 +31,7 @@
 
     <string name="validate">Validate</string>
     <string name="cancel">Cancel</string>
+    <string name="delete">Delete</string>
 
     <string name="PopUp">Give a name !</string>
     <string name="PopuPlan">Choose a plan !</string>

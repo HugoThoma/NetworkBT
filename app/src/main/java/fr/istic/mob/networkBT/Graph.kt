@@ -40,24 +40,30 @@ class Graph {
         myConnexions.clear()
     }
 
-    fun setObjet(oldName: String, name: String, color: Paint, image: String) {
-        for (obj in myObjects.values) {
+    fun setObjet(oldName: String, name: String, color: Paint, image: String, px: Float, py: Float) {
+        deleteObjet(oldName)
+        addObject(name,color,image,px,py)
+        /*for (obj in myObjects.values) {
             if (obj.etiquette == oldName) {
                 obj.etiquette = name
                 obj.couleur = color
                 obj.image = image
             }
-        }
+        }*/
     }
 
-    fun setConnexion(oldName: String, name : String, color : Paint,epaisseur: Float){
-        for(connexion in myConnexions.values){
+    fun setConnexion(oldName: String, name : String, color : Paint,epaisseur: Float, objetDépart: Objet, objetArrivée: Objet, px_nom: Float, py_nom: Float){
+
+        deleteConnexion(oldName)
+        addConnexion(name, color, epaisseur, objetDépart, objetArrivée, px_nom, py_nom)
+        /*for(connexion in myConnexions.values){
             if (connexion.name == oldName){
                 connexion.name = name
                 connexion.color = color
                 connexion.epaisseur = epaisseur
             }
-        }
+
+        }*/
     }
 
     //Pour donner des coordonnées au libellé de la connexion
@@ -66,6 +72,26 @@ class Graph {
             if (connexion.name == name) {
                 connexion.px_nom = (connexion.objet1.px + connexion.objet2.px) / 2
                 connexion.py_nom = (connexion.objet1.py + connexion.objet2.py) / 2
+            }
+        }
+    }
+
+    fun deleteObjet(name: String){
+        val iterator = myObjects.iterator()
+        while (iterator.hasNext()){
+            val item = iterator.next()
+            if(item.value.etiquette == name){
+                iterator.remove()
+            }
+        }
+    }
+
+    fun deleteConnexion(name: String){
+        val iterator = myConnexions.iterator()
+        while (iterator.hasNext()){
+            val item = iterator.next()
+            if(item.value.name == name){
+                iterator.remove()
             }
         }
     }

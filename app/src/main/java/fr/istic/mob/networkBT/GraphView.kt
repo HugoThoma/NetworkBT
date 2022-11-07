@@ -71,7 +71,7 @@ class GraphView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
                     if (e != null) {
                         connexionModif = ConnexionProche(e.x, e.y)
                     }
-                    if (objetModif !== null) {
+                    if (connexionModif !== null) {
                         popup_connexion()
                     }
                 }
@@ -382,6 +382,7 @@ class GraphView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
 
         val submitButton = dialog.findViewById<Button>(R.id.Btn_validate)
         val cancelButton = dialog.findViewById<Button>(R.id.Btn_cancel)
+        val deleteButton = dialog.findViewById<Button>(R.id.btn_delete2)
 
         submitButton.setOnClickListener {
 
@@ -390,12 +391,19 @@ class GraphView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
             if (status == "ajouter_obj") {
                 graphe.addObject(name_obj.text.toString(), mPaint, "null", posx, posy)
             } else if (status == "modifier_obj") {
-                graphe.setObjet(old_name,name_obj.text.toString(), mPaint, "null")
+                graphe.setObjet(old_name,name_obj.text.toString(), mPaint, "null",objetModif!!.px,objetModif!!.py)
             }
             invalidate()
             dialog.dismiss()
         }
         cancelButton.setOnClickListener {
+            dialog.dismiss()
+        }
+        deleteButton.setOnClickListener {
+            if (status == "modifier_obj") {
+                graphe.deleteObjet(old_name)
+                invalidate()
+            }
             dialog.dismiss()
         }
         dialog.show()
@@ -572,6 +580,7 @@ class GraphView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
 
         val submitButton = dialog.findViewById<Button>(R.id.Btn_validate)
         val cancelButton = dialog.findViewById<Button>(R.id.Btn_cancel)
+        val deleteButton = dialog.findViewById<Button>(R.id.btn_delete)
 
 
 
@@ -585,12 +594,19 @@ class GraphView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
                 )
             }
             if (status == "modifier_cnx") {
-                graphe.setConnexion(old_name, name.text.toString(),Trait, seekBar.progress.toFloat())
+                graphe.setConnexion(old_name, name.text.toString(),Trait, seekBar.progress.toFloat(),connexionModif!!.objet1,connexionModif!!.objet2,connexionModif!!.px_nom,connexionModif!!.py_nom)
             }
             invalidate()
             dialog.dismiss()
         }
         cancelButton.setOnClickListener {
+            dialog.dismiss()
+        }
+        deleteButton.setOnClickListener {
+            if (status == "modifier_cnx") {
+                graphe.deleteConnexion(old_name)
+                invalidate()
+            }
             dialog.dismiss()
         }
         dialog.show()
