@@ -10,23 +10,63 @@ import kotlin.collections.HashMap
 
 class Graph {
     // contient le descr du graphe des connexions: objet,conx,couleur, posi
-  //private var noeuds : HashSet<>
+    //private var noeuds : HashSet<>
     var colorofobject = Color.CYAN
     var colorofpath = Color.GREEN
     var strokeWidth = 12f
-    var myObjects: HashMap<String,Objet> = hashMapOf<String,Objet>()//stock tt les obj
-    var myConnexions : HashMap<String,Connexion> = hashMapOf<String,Connexion>()//stock tt les obj
+    var myObjects: HashMap<String, Objet> = hashMapOf<String, Objet>()//stock tt les obj
+    var myConnexions: HashMap<String, Connexion> = hashMapOf<String, Connexion>()//stock tt les obj
 
-     fun addObject(name : String, color : Paint,image: String, px: Float, py: Float){
-          var objet = Objet(name,color,image,px,py)
-         myObjects.put(name,objet)
-     }
-    fun addConnexion(name : String, color : Paint,epaisseur: Float, ObjetDépart :Objet, ObjetArrivée:Objet){
-        var connexion = Connexion(name, color,epaisseur, ObjetDépart, ObjetArrivée)
+    fun addObject(name: String, color: Paint, image: String, px: Float, py: Float) {
+        var objet = Objet(name, color, image, px, py)
+        myObjects.put(name, objet)
+    }
+
+    fun addConnexion(
+        name: String,
+        color: Paint,
+        epaisseur: Float,
+        ObjetDépart: Objet,
+        ObjetArrivée: Objet,
+        px_nom: Float,
+        py_nom: Float
+    ) {
+        var connexion = Connexion(name, color, epaisseur, ObjetDépart, ObjetArrivée, px_nom, py_nom)
         myConnexions.put(name, connexion)
     }
-    fun Reinitialize(){
+
+    fun Reinitialize() {
         myObjects.clear()
         myConnexions.clear()
+    }
+
+    fun setObjet(oldName: String, name: String, color: Paint, image: String) {
+        for (obj in myObjects.values) {
+            if (obj.etiquette == oldName) {
+                obj.etiquette = name
+                obj.couleur = color
+                obj.image = image
+            }
+        }
+    }
+
+    fun setConnexion(oldName: String, name : String, color : Paint,epaisseur: Float){
+        for(connexion in myConnexions.values){
+            if (connexion.name == oldName){
+                connexion.name = name
+                connexion.color = color
+                connexion.epaisseur = epaisseur
+            }
+        }
+    }
+
+    //Pour donner des coordonnées au libellé de la connexion
+    fun setConnexionName_coord(name: String, Objet1: Objet, Objet2: Objet) {
+        for (connexion in myConnexions.values) {
+            if (connexion.name == name) {
+                connexion.px_nom = (connexion.objet1.px + connexion.objet2.px) / 2
+                connexion.py_nom = (connexion.objet1.py + connexion.objet2.py) / 2
+            }
+        }
     }
 }

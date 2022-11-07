@@ -8,5 +8,7 @@ data class Connexion(
     var epaisseur: Float,
     var objet1: Objet,
     var objet2: Objet,
+    var px_nom: Float,
+    var py_nom:Float,
 
     )
