@@ -28,6 +28,8 @@
     <string name="pink">Magenta</string>
     <string name="black">Noir</string>
 
+    <string name="obj_message">Ce nom est déjà utilisé, veuillez choisir un autre nom svp</string>
+    <string name="obj_messagecnx">Une connexion entre les deux objets exite déjà</string>
 
     <string name="validate">Valider</string>
     <string name="cancel">Annuler</string>

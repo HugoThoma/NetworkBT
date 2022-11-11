@@ -18,9 +18,6 @@
         </menu>
     </item>
     <item
-        android:id="@+id/reini"
-        android:title="@string/Reini" />
-    <item
         android:id="@+id/sauver"
         android:title="@string/save" />
     <item
@@ -41,5 +38,8 @@
     <item
         android:id="@+id/mail"
         android:title="@string/mail" />
+    <item
+        android:id="@+id/reini"
+        android:title="@string/Reini" />
 
 </menu>

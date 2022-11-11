@@ -388,10 +388,23 @@ class GraphView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
 
             //val name = name_obj.text.toString()
             //Radio btn + image a ajouter
-            if (status == "ajouter_obj") {
-                graphe.addObject(name_obj.text.toString(), mPaint, "null", posx, posy)
-            } else if (status == "modifier_obj") {
-                graphe.setObjet(old_name,name_obj.text.toString(), mPaint, "null",objetModif!!.px,objetModif!!.py)
+            if (graphe.myObjects.containsKey(name_obj.text.toString())){
+                popupNom()
+            }
+            else {
+                if (status == "ajouter_obj") {
+                        graphe.addObject(name_obj.text.toString(), mPaint, "null", posx, posy)
+                } else if (status == "modifier_obj") {
+                    graphe.setObjet(
+                        old_name,
+                        name_obj.text.toString(),
+                        mPaint,
+                        "null",
+                        objetModif!!.px,
+                        objetModif!!.py
+                    )
+
+                }
             }
             invalidate()
             dialog.dismiss()
@@ -587,14 +600,20 @@ class GraphView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
         submitButton.setOnClickListener {
             //val name = name_obj.text.toString()
             //Radio btn + image a ajouter
-            if (status == "connecter_obj") {
-                graphe.addConnexion(
-                    name.text.toString(), Trait,
-                    seekBar.progress.toFloat(), objet1!!, objet2!!, 0.0F, 0.0F
-                )
+            //val connexion = Connexion(name.text.toString(), Trait , Trait.strokeWidth, objet1!!, objet2!!, 0.0F, 0.0F)
+            if (graphe.myConnexions.containsKey(name.text.toString())){
+                popupNom()
+            }else if(CnxExiste(objet1!!, objet2!!)) {
+                popupCnx()
             }
-            if (status == "modifier_cnx") {
-                graphe.setConnexion(old_name, name.text.toString(),Trait, seekBar.progress.toFloat(),connexionModif!!.objet1,connexionModif!!.objet2,connexionModif!!.px_nom,connexionModif!!.py_nom)
+            else{
+                if (status == "connecter_obj") {
+                        graphe.addConnexion(
+                            name.text.toString(), Trait,seekBar.progress.toFloat(), objet1!!, objet2!!, 0.0F, 0.0F)
+                }
+                if (status == "modifier_cnx") {
+                    graphe.setConnexion(old_name, name.text.toString(),Trait, seekBar.progress.toFloat(),connexionModif!!.objet1,connexionModif!!.objet2,connexionModif!!.px_nom,connexionModif!!.py_nom)
+                }
             }
             invalidate()
             dialog.dismiss()
@@ -612,6 +631,51 @@ class GraphView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
         dialog.show()
     }
 
+    fun popupNom() {
+        val dialog = Dialog(context)
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setCancelable(true)
+        dialog.setContentView(R.layout.popup_message_name)
+        val cancelButton = dialog.findViewById<Button>(R.id.Btn_cancel)
+        cancelButton.setOnClickListener {
+            dialog.dismiss()
+        }
+        dialog.show()
+    }
+    fun popupCnx() {
+        val dialog = Dialog(context)
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setCancelable(true)
+        dialog.setContentView(R.layout.popup_message_cnx)
+        val cancelButton = dialog.findViewById<Button>(R.id.Btn_cancel)
+        cancelButton.setOnClickListener {
+            dialog.dismiss()
+        }
+        dialog.show()
+    }
+    fun CnxExiste(a:Objet, b:Objet):Boolean{
+
+            val iterator = graphe.myConnexions.iterator()
+            while (iterator.hasNext()){
+                val item = iterator.next()
+                if(item.value.objet1.etiquette == a.etiquette || item.value.objet1.etiquette == b.etiquette || item.value.objet2.etiquette == a.etiquette || item.value.objet2.etiquette == b.etiquette ){
+                   return true
+                }
+            }
+
+        return false
+    }
+    //TODO : Verif si une boucle existe
+    fun Boucle(a:Objet, b:Objet):Boolean{
+        val iterator = graphe.myConnexions.iterator()
+        while (iterator.hasNext()){
+            val item = iterator.next()
+            if(item.value.objet1.etiquette == a.etiquette || item.value.objet1.etiquette == b.etiquette || item.value.objet2.etiquette == a.etiquette || item.value.objet2.etiquette == b.etiquette ){
+                return true
+            }
+        }
+        return true
+    }
 
 }
 

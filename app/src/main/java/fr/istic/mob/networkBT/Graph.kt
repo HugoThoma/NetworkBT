@@ -16,10 +16,10 @@ class Graph {
     var strokeWidth = 12f
     var myObjects: HashMap<String, Objet> = hashMapOf<String, Objet>()//stock tt les obj
     var myConnexions: HashMap<String, Connexion> = hashMapOf<String, Connexion>()//stock tt les obj
-
+// color was Paint
     fun addObject(name: String, color: Paint, image: String, px: Float, py: Float) {
-        var objet = Objet(name, color, image, px, py)
-        myObjects.put(name, objet)
+            var objet = Objet(name, color, image, px, py)
+            myObjects.put(name, objet)
     }
 
     fun addConnexion(
@@ -39,7 +39,7 @@ class Graph {
         myObjects.clear()
         myConnexions.clear()
     }
-
+//color was paint
     fun setObjet(oldName: String, name: String, color: Paint, image: String, px: Float, py: Float) {
         deleteObjet(oldName)
         addObject(name,color,image,px,py)
