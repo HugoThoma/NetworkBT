@@ -388,26 +388,48 @@ class GraphView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
 
             //val name = name_obj.text.toString()
             //Radio btn + image a ajouter
-            if (graphe.myObjects.containsKey(name_obj.text.toString())){
+            /*if (graphe.myObjects.containsKey(name_obj.text.toString())){
                 popupNom()
             }
-            else {
+            else {*/
                 if (status == "ajouter_obj") {
+                    if (graphe.myObjects.containsKey(name_obj.text.toString())){
+                        popupNom()
+                    } else{
                         graphe.addObject(name_obj.text.toString(), mPaint, "null", posx, posy)
+                        invalidate()
+                        dialog.dismiss()
+                    }
                 } else if (status == "modifier_obj") {
-                    graphe.setObjet(
-                        old_name,
-                        name_obj.text.toString(),
-                        mPaint,
-                        "null",
-                        objetModif!!.px,
-                        objetModif!!.py
-                    )
-
+                    if(old_name != name_obj.text.toString()){
+                        if (graphe.myObjects.containsKey(name_obj.text.toString())) {
+                            popupNom()
+                        } else{
+                            graphe.setObjet(
+                                old_name,
+                                name_obj.text.toString(),
+                                mPaint,
+                                "null",
+                                objetModif!!.px,
+                                objetModif!!.py
+                            )
+                            invalidate()
+                            dialog.dismiss()
+                        }
+                    } else {
+                        graphe.setObjet(
+                            old_name,
+                            name_obj.text.toString(),
+                            mPaint,
+                            "null",
+                            objetModif!!.px,
+                            objetModif!!.py
+                        )
+                        invalidate()
+                        dialog.dismiss()
+                    }
                 }
-            }
-            invalidate()
-            dialog.dismiss()
+            //}
         }
         cancelButton.setOnClickListener {
             dialog.dismiss()
@@ -598,25 +620,46 @@ class GraphView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
 
 
         submitButton.setOnClickListener {
-            //val name = name_obj.text.toString()
-            //Radio btn + image a ajouter
-            //val connexion = Connexion(name.text.toString(), Trait , Trait.strokeWidth, objet1!!, objet2!!, 0.0F, 0.0F)
-            if (graphe.myConnexions.containsKey(name.text.toString())){
+            /*if (graphe.myConnexions.containsKey(name.text.toString())){
                 popupNom()
             }else if(CnxExiste(objet1!!, objet2!!)) {
                 popupCnx()
             }
-            else{
+            else{*/
                 if (status == "connecter_obj") {
+                    if (graphe.myConnexions.containsKey(name.text.toString())) {
+                        popupNom()
+                    }else if(CnxExiste(objet1!!, objet2!!)) {
+                        popupCnx()
+                    }else {
                         graphe.addConnexion(
-                            name.text.toString(), Trait,seekBar.progress.toFloat(), objet1!!, objet2!!, 0.0F, 0.0F)
+                            name.text.toString(),
+                            Trait,
+                            seekBar.progress.toFloat(),
+                            objet1!!,
+                            objet2!!,
+                            0.0F,
+                            0.0F
+                        )
+                    }
                 }
                 if (status == "modifier_cnx") {
-                    graphe.setConnexion(old_name, name.text.toString(),Trait, seekBar.progress.toFloat(),connexionModif!!.objet1,connexionModif!!.objet2,connexionModif!!.px_nom,connexionModif!!.py_nom)
+                    if(old_name != name.text.toString()){
+                        if (graphe.myConnexions.containsKey(name.text.toString())) {
+                            popupNom()
+                        } else {
+                            graphe.setConnexion(old_name, name.text.toString(),Trait, seekBar.progress.toFloat(),connexionModif!!.objet1,connexionModif!!.objet2,connexionModif!!.px_nom,connexionModif!!.py_nom)
+                            invalidate()
+                            dialog.dismiss()
+                        }
+                    }else{
+                        graphe.setConnexion(old_name, name.text.toString(),Trait, seekBar.progress.toFloat(),connexionModif!!.objet1,connexionModif!!.objet2,connexionModif!!.px_nom,connexionModif!!.py_nom)
+                        invalidate()
+                        dialog.dismiss()
+                    }
                 }
-            }
-            invalidate()
-            dialog.dismiss()
+            //}
+
         }
         cancelButton.setOnClickListener {
             dialog.dismiss()
