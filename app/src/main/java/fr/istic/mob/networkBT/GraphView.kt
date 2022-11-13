@@ -156,7 +156,7 @@ class GraphView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
                 }
                 MotionEvent.ACTION_MOVE -> {
                     if (objetModif != null) {
-                        // if x est dnas le screen faire tt ca
+                        // if x est dans l'écran faire tout ça
                         if (event.x + width <= this.measuredWidth && event.y - width / 2 <= this.measuredHeight
                             && event.x + width >= 0 && event.y - width / 2 >= 0
                         ) {
@@ -164,10 +164,36 @@ class GraphView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
                             var nomObj = objetModif!!.etiquette.toString()
                             objetModif!!.px = event.x
                             objetModif!!.py = event.y
-                            graphe.myObjects.set(nomObj, objetModif!!)
+                            graphe.myObjects[nomObj] = objetModif!!
                         }
                     }
 
+                }
+            }
+        }
+
+        if (status == "modifier_cnx") {
+            //Modifier l'inclinaison de la connexion
+            when (event.action and MotionEvent.ACTION_MASK) {
+                MotionEvent.ACTION_DOWN -> {
+                    connexionModif = ConnexionProche(event.x, event.y)
+                }
+                MotionEvent.ACTION_UP -> {
+                    invalidate()
+                }
+                MotionEvent.ACTION_MOVE -> {
+                    if(connexionModif != null){
+                        // if x est dans l'écran faire tout ça
+                        if (event.x + width <= this.measuredWidth && event.y - width / 2 <= this.measuredHeight
+                            && event.x + width >= 0 && event.y - width / 2 >= 0
+                        ) {
+                            //Actualiser les coordonnées de la connexion
+                            var nomCnx = connexionModif!!.name.toString()
+                            connexionModif!!.px_nom = event.x
+                            connexionModif!!.py_nom = event.y
+                            graphe.myConnexions[nomCnx] = connexionModif!!
+                        }
+                    }
                 }
             }
         }
@@ -182,12 +208,12 @@ class GraphView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
             if (dessin.etiquette != "") {
                 canvas.drawCircle(dessin.px, dessin.py, width, dessin.couleur)
                 canvas.drawText(dessin.etiquette, dessin.px, dessin.py, TxtPaint)
-                Log.e("COULEUR : ", dessin.etiquette + dessin.couleur.toString())
+                //Log.e("COULEUR : ", dessin.etiquette + dessin.couleur.toString())
             }
         }
         //dessin de connexion
         for (connexion in graphe.myConnexions.values) {
-            Log.i("nb cnx", graphe.myConnexions.toString())
+            //Log.i("nb cnx", graphe.myConnexions.toString())
 
             path.moveTo(connexion.objet1.px, connexion.objet1.py)
             path.lineTo(connexion.objet2.px, connexion.objet2.py)
@@ -227,7 +253,7 @@ class GraphView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
         for (objet in graphe.myObjects.values) {
             if (objet.px < px + 25 && objet.px > px - 25) {
                 if (objet.py < py + 25 && objet.py > py - 25) {
-                    Log.e("Trouvé", "objet1")
+                    //Log.e("Trouvé", "objet1")
                     return objet
                 }
             }
@@ -239,7 +265,7 @@ class GraphView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
         for (connexion in graphe.myConnexions.values) {
             if (connexion.px_nom < px + 25 && connexion.px_nom > px - 25) {
                 if (connexion.py_nom < py + 25 && connexion.py_nom > py - 25) {
-                    Log.e("Trouvé", "Connexion")
+                    //Log.e("Trouvé", "Connexion")
                     return connexion
                 }
             }
@@ -646,8 +672,9 @@ class GraphView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
             if (status == "connecter_obj") {
                 if (graphe.myConnexions.containsKey(name.text.toString())) {
                     popupNom()
-                    /*} else if (CnxExiste(objet1!!, objet2!!)) {
-                        popupCnx()*/
+                } else if (CnxExiste(objet1!!, objet2!!)) {
+                    popupCnx()
+                    dialog.dismiss()
                 } else {
                     graphe.addConnexion(
                         name.text.toString(),
@@ -744,7 +771,6 @@ class GraphView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
                 return true
             }
         }
-
         return false
     }
 
