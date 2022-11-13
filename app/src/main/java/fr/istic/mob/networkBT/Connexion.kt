@@ -10,5 +10,5 @@ data class Connexion(
     var objet2: Objet,
     var px_nom: Float,
     var py_nom:Float,
-
     )
+

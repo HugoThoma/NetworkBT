@@ -218,6 +218,7 @@ class GraphView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
             path.moveTo(connexion.objet1.px, connexion.objet1.py)
             path.lineTo(connexion.objet2.px, connexion.objet2.py)
             //canvas.drawLine(connexion.objet1.px, connexion.objet1.py, connexion.objet2.px, connexion.objet2.py, Trait)
+            connexion.color.strokeWidth = connexion.epaisseur
             canvas.drawPath(path, connexion.color)
             graphe.setConnexionName_coord(connexion.name, connexion.objet1, connexion.objet2)
             canvas.drawText(
@@ -772,6 +773,25 @@ class GraphView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
             }
         }
         return false
+    }
+    fun test(){
+//        for (connexion in graphe.myConnexions.values) {
+//            //Log.i("nb cnx", graphe.myConnexions.toString())
+//
+//            //path.moveTo(connexion.objet1.px, connexion.objet1.py)
+//            path.lineTo(connexion.objet2.px, connexion.objet2.py)
+//            //canvas.drawLine(connexion.objet1.px, connexion.objet1.py, connexion.objet2.px, connexion.objet2.py, Trait)
+//            canvas.drawPath(path, connexion.color)
+//            graphe.setConnexionName_coord(connexion.name, connexion.objet1, connexion.objet2)
+//            canvas.drawText(
+//                connexion.name,
+//                connexion.px_nom,
+//                connexion.py_nom,
+//                TxtPaint
+//            )
+//            path.reset()
+//        }
+        postInvalidate()
     }
 
 }
