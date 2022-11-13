@@ -79,7 +79,7 @@ class GraphView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
                     }
                 }
                 // modifier connexion
-                else if(status == "modifier_cnx"){
+                else if (status == "modifier_cnx") {
                     if (e != null) {
                         connexionModif = ConnexionProche(e.x, e.y)
                     }
@@ -106,8 +106,7 @@ class GraphView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
                     if (objetModif !== null) {
                         popup_objet()
                     }
-                }
-                else if(status == "modifier_cnx"){
+                } else if (status == "modifier_cnx") {
                     if (e != null) {
                         connexionModif = ConnexionProche(e.x, e.y)
                     }
@@ -268,11 +267,53 @@ class GraphView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
         //Radio btn + image a ajouter
         val color_SeekBar = dialog.findViewById<SeekBar>(R.id.seekBar_color)
         val color_text = dialog.findViewById<TextView>(R.id.selected_color)
-        //Couleur par défaut
-        color_text.text = resources.getString(R.string.green)
-        color_text.setTextColor(Color.parseColor("#008000"))
-        mPaint.color = Color.GREEN
-
+        //Affichage des données par défaut affiché sur la popup
+        if (status == "modifier_obj") {
+            //Affichage du nom de l'objet modifié
+            old_name = objetModif!!.etiquette
+            name_obj.setText(objetModif!!.etiquette)
+            //Affichage de la couleur de l'objet modifié
+            if (objetModif!!.couleur.color == Color.RED) {
+                color_text.text = resources.getString(R.string.red)
+                color_text.setTextColor(Color.parseColor("#FF0000"))
+                mPaint.color = Color.RED
+                color_SeekBar.progress = 0
+            } else if (objetModif!!.couleur.color == Color.GREEN) {
+                color_text.text = resources.getString(R.string.green)
+                color_text.setTextColor(Color.parseColor("#008000"))
+                mPaint.color = Color.GREEN
+                color_SeekBar.progress = 1
+            } else if (objetModif!!.couleur.color == Color.BLUE) {
+                color_text.text = resources.getString(R.string.blue)
+                color_text.setTextColor(Color.parseColor("#0000FF"))
+                mPaint.color = Color.BLUE
+                color_SeekBar.progress = 2
+            } else if (objetModif!!.couleur.color == Color.YELLOW) {
+                color_text.text = resources.getString(R.string.yellow)
+                color_text.setTextColor(Color.parseColor("#FFFF00"))
+                mPaint.color = Color.YELLOW
+                color_SeekBar.progress = 3
+            } else if (objetModif!!.couleur.color == Color.CYAN) {
+                color_text.text = resources.getString(R.string.cyan)
+                color_text.setTextColor(Color.parseColor("#E0FFFF"))
+                mPaint.color = Color.CYAN
+                color_SeekBar.progress = 4
+            } else if (objetModif!!.couleur.color == Color.MAGENTA) {
+                color_text.text = resources.getString(R.string.pink)
+                color_text.setTextColor(Color.parseColor("#FF00FF"))
+                mPaint.color = Color.MAGENTA
+                color_SeekBar.progress = 5
+            } else if (objetModif!!.couleur.color == Color.BLACK) {
+                color_text.text = resources.getString(R.string.black)
+                color_text.setTextColor(Color.parseColor("#000000"))
+                mPaint.color = Color.BLACK
+                color_SeekBar.progress = 6
+            }
+        }else{
+            color_text.text = resources.getString(R.string.green)
+            color_text.setTextColor(Color.parseColor("#008000"))
+            mPaint.color = Color.GREEN
+        }
         color_SeekBar?.setOnSeekBarChangeListener(object :
             SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(
@@ -320,45 +361,7 @@ class GraphView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
             }
 
             override fun onStartTrackingTouch(seek: SeekBar) {
-                // write custom code for progress is started
-                if (status == "modifier_obj") {
-                    if (objetModif!!.couleur.color == Color.RED) {
-                        color_text.text = resources.getString(R.string.red)
-                        color_text.setTextColor(Color.parseColor("#FF0000"))
-                        mPaint.color = Color.RED
-                        seek.progress = 0
-                    } else if (objetModif!!.couleur.color == Color.GREEN) {
-                        color_text.text = resources.getString(R.string.green)
-                        color_text.setTextColor(Color.parseColor("#008000"))
-                        mPaint.color = Color.GREEN
-                        seek.progress = 1
-                    } else if (objetModif!!.couleur.color == Color.BLUE) {
-                        color_text.text = resources.getString(R.string.blue)
-                        color_text.setTextColor(Color.parseColor("#0000FF"))
-                        mPaint.color = Color.BLUE
-                        seek.progress = 2
-                    } else if (objetModif!!.couleur.color == Color.YELLOW) {
-                        color_text.text = resources.getString(R.string.yellow)
-                        color_text.setTextColor(Color.parseColor("#FFFF00"))
-                        mPaint.color = Color.YELLOW
-                        seek.progress = 3
-                    } else if (objetModif!!.couleur.color == Color.CYAN) {
-                        color_text.text = resources.getString(R.string.cyan)
-                        color_text.setTextColor(Color.parseColor("#E0FFFF"))
-                        mPaint.color = Color.CYAN
-                        seek.progress = 4
-                    } else if (objetModif!!.couleur.color == Color.MAGENTA) {
-                        color_text.text = resources.getString(R.string.pink)
-                        color_text.setTextColor(Color.parseColor("#FF00FF"))
-                        mPaint.color = Color.MAGENTA
-                        seek.progress = 5
-                    } else if (objetModif!!.couleur.color == Color.BLACK) {
-                        color_text.text = resources.getString(R.string.black)
-                        color_text.setTextColor(Color.parseColor("#000000"))
-                        mPaint.color = Color.BLACK
-                        seek.progress = 6
-                    }
-                }
+
             }
 
             override fun onStopTrackingTouch(seek: SeekBar) {
@@ -404,30 +407,18 @@ class GraphView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
                 popupNom()
             }
             else {*/
-                if (status == "ajouter_obj") {
-                    if (graphe.myObjects.containsKey(name_obj.text.toString())){
+            if (status == "ajouter_obj") {
+                if (graphe.myObjects.containsKey(name_obj.text.toString())) {
+                    popupNom()
+                } else {
+                    graphe.addObject(name_obj.text.toString(), mPaint, "null", posx, posy)
+                    invalidate()
+                    dialog.dismiss()
+                }
+            } else if (status == "modifier_obj") {
+                if (old_name != name_obj.text.toString()) {
+                    if (graphe.myObjects.containsKey(name_obj.text.toString())) {
                         popupNom()
-                    } else{
-                        graphe.addObject(name_obj.text.toString(), mPaint, "null", posx, posy)
-                        invalidate()
-                        dialog.dismiss()
-                    }
-                } else if (status == "modifier_obj") {
-                    if(old_name != name_obj.text.toString()){
-                        if (graphe.myObjects.containsKey(name_obj.text.toString())) {
-                            popupNom()
-                        } else{
-                            graphe.setObjet(
-                                old_name,
-                                name_obj.text.toString(),
-                                mPaint,
-                                "null",
-                                objetModif!!.px,
-                                objetModif!!.py
-                            )
-                            invalidate()
-                            dialog.dismiss()
-                        }
                     } else {
                         graphe.setObjet(
                             old_name,
@@ -440,7 +431,19 @@ class GraphView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
                         invalidate()
                         dialog.dismiss()
                     }
+                } else {
+                    graphe.setObjet(
+                        old_name,
+                        name_obj.text.toString(),
+                        mPaint,
+                        "null",
+                        objetModif!!.px,
+                        objetModif!!.py
+                    )
+                    invalidate()
+                    dialog.dismiss()
                 }
+            }
             //}
         }
         cancelButton.setOnClickListener {
@@ -470,10 +473,7 @@ class GraphView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
 
         //Initializing the views of the dialog.
         val name = dialog.findViewById<EditText>(R.id.cnx_name)
-        if (status == "modifier_cnx") {
-            old_name = connexionModif!!.name
-            name.setText(connexionModif!!.name)
-        }
+
         val seekBar = dialog.findViewById<SeekBar>(R.id.seekBar)
         val indicateur_SeekBar = dialog.findViewById<TextView>(R.id.connexion_width)
         seekBar?.setOnSeekBarChangeListener(object :
@@ -489,10 +489,7 @@ class GraphView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
             }
 
             override fun onStartTrackingTouch(seek: SeekBar) {
-                if (status == "modifier_cnx"){
-                    seek.progress = (connexionModif!!.epaisseur*2).toInt()
-                    indicateur_SeekBar.text = connexionModif!!.epaisseur.toString()
-                }
+
             }
 
             override fun onStopTrackingTouch(seek: SeekBar) {
@@ -502,10 +499,6 @@ class GraphView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
 
         val cnx_color_SeekBar = dialog.findViewById<SeekBar>(R.id.seekBar2)
         val cnx_color_text = dialog.findViewById<TextView>(R.id.cnx_selected_color)
-        //Couleur par défaut
-        cnx_color_text.text = resources.getString(R.string.green)
-        cnx_color_text.setTextColor(Color.parseColor("#008000"))
-        Trait.color = Color.GREEN
 
         cnx_color_SeekBar?.setOnSeekBarChangeListener(object :
             SeekBar.OnSeekBarChangeListener {
@@ -554,44 +547,7 @@ class GraphView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
             }
 
             override fun onStartTrackingTouch(seek: SeekBar) {
-                if (status == "modifier_cnx") {
-                    if (connexionModif!!.color.color == Color.RED) {
-                        cnx_color_text.text = resources.getString(R.string.red)
-                        cnx_color_text.setTextColor(Color.parseColor("#FF0000"))
-                        mPaint.color = Color.RED
-                        seek.progress = 0
-                    } else if (connexionModif!!.color.color == Color.GREEN) {
-                        cnx_color_text.text = resources.getString(R.string.green)
-                        cnx_color_text.setTextColor(Color.parseColor("#008000"))
-                        mPaint.color = Color.GREEN
-                        seek.progress = 1
-                    } else if (connexionModif!!.color.color == Color.BLUE) {
-                        cnx_color_text.text = resources.getString(R.string.blue)
-                        cnx_color_text.setTextColor(Color.parseColor("#0000FF"))
-                        mPaint.color = Color.BLUE
-                        seek.progress = 2
-                    } else if (connexionModif!!.color.color == Color.YELLOW) {
-                        cnx_color_text.text = resources.getString(R.string.yellow)
-                        cnx_color_text.setTextColor(Color.parseColor("#FFFF00"))
-                        mPaint.color = Color.YELLOW
-                        seek.progress = 3
-                    } else if (connexionModif!!.color.color == Color.CYAN) {
-                        cnx_color_text.text = resources.getString(R.string.cyan)
-                        cnx_color_text.setTextColor(Color.parseColor("#E0FFFF"))
-                        mPaint.color = Color.CYAN
-                        seek.progress = 4
-                    } else if (connexionModif!!.color.color == Color.MAGENTA) {
-                        cnx_color_text.text = resources.getString(R.string.pink)
-                        cnx_color_text.setTextColor(Color.parseColor("#FF00FF"))
-                        mPaint.color = Color.MAGENTA
-                        seek.progress = 5
-                    } else if (connexionModif!!.color.color == Color.BLACK) {
-                        cnx_color_text.text = resources.getString(R.string.black)
-                        cnx_color_text.setTextColor(Color.parseColor("#000000"))
-                        mPaint.color = Color.BLACK
-                        seek.progress = 6
-                    }
-                }
+
             }
 
             override fun onStopTrackingTouch(seek: SeekBar) {
@@ -629,7 +585,56 @@ class GraphView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
         val cancelButton = dialog.findViewById<Button>(R.id.Btn_cancel)
         val deleteButton = dialog.findViewById<Button>(R.id.btn_delete)
 
-
+        //Affichage des données de la connexion sur la popup
+        if (status == "modifier_cnx") {
+            //Affichage du nom de la connexion
+            old_name = connexionModif!!.name
+            name.setText(connexionModif!!.name)
+            //Affichage de l'épaisseur de la connexion
+            seekBar.progress = (connexionModif!!.epaisseur).toInt()
+            indicateur_SeekBar.text = (connexionModif!!.epaisseur/2).toString()
+            //Affichage de la couleur connexion
+            if (connexionModif!!.color.color == Color.RED) {
+                cnx_color_text.text = resources.getString(R.string.red)
+                cnx_color_text.setTextColor(Color.parseColor("#FF0000"))
+                mPaint.color = Color.RED
+                cnx_color_SeekBar.progress = 0
+            } else if (connexionModif!!.color.color == Color.GREEN) {
+                cnx_color_text.text = resources.getString(R.string.green)
+                cnx_color_text.setTextColor(Color.parseColor("#008000"))
+                mPaint.color = Color.GREEN
+                cnx_color_SeekBar.progress = 1
+            } else if (connexionModif!!.color.color == Color.BLUE) {
+                cnx_color_text.text = resources.getString(R.string.blue)
+                cnx_color_text.setTextColor(Color.parseColor("#0000FF"))
+                mPaint.color = Color.BLUE
+                cnx_color_SeekBar.progress = 2
+            } else if (connexionModif!!.color.color == Color.YELLOW) {
+                cnx_color_text.text = resources.getString(R.string.yellow)
+                cnx_color_text.setTextColor(Color.parseColor("#FFFF00"))
+                mPaint.color = Color.YELLOW
+                cnx_color_SeekBar.progress = 3
+            } else if (connexionModif!!.color.color == Color.CYAN) {
+                cnx_color_text.text = resources.getString(R.string.cyan)
+                cnx_color_text.setTextColor(Color.parseColor("#E0FFFF"))
+                mPaint.color = Color.CYAN
+                cnx_color_SeekBar.progress = 4
+            } else if (connexionModif!!.color.color == Color.MAGENTA) {
+                cnx_color_text.text = resources.getString(R.string.pink)
+                cnx_color_text.setTextColor(Color.parseColor("#FF00FF"))
+                mPaint.color = Color.MAGENTA
+                cnx_color_SeekBar.progress = 5
+            } else if (connexionModif!!.color.color == Color.BLACK) {
+                cnx_color_text.text = resources.getString(R.string.black)
+                cnx_color_text.setTextColor(Color.parseColor("#000000"))
+                mPaint.color = Color.BLACK
+                cnx_color_SeekBar.progress = 6
+            }
+        } else {
+            cnx_color_text.text = resources.getString(R.string.green)
+            cnx_color_text.setTextColor(Color.parseColor("#008000"))
+            Trait.color = Color.GREEN
+        }
 
         submitButton.setOnClickListener {
             /*if (graphe.myConnexions.containsKey(name.text.toString())){
@@ -638,38 +643,58 @@ class GraphView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
                 popupCnx()
             }
             else{*/
-                if (status == "connecter_obj") {
+            if (status == "connecter_obj") {
+                if (graphe.myConnexions.containsKey(name.text.toString())) {
+                    popupNom()
+                    /*} else if (CnxExiste(objet1!!, objet2!!)) {
+                        popupCnx()*/
+                } else {
+                    graphe.addConnexion(
+                        name.text.toString(),
+                        Trait,
+                        seekBar.progress.toFloat(),
+                        objet1!!,
+                        objet2!!,
+                        0.0F,
+                        0.0F
+                    )
+                    invalidate()
+                    dialog.dismiss()
+                }
+            }
+            if (status == "modifier_cnx") {
+                if (old_name != name.text.toString()) {
                     if (graphe.myConnexions.containsKey(name.text.toString())) {
                         popupNom()
-                    }else if(CnxExiste(objet1!!, objet2!!)) {
-                        popupCnx()
-                    }else {
-                        graphe.addConnexion(
+                    } else {
+                        graphe.setConnexion(
+                            old_name,
                             name.text.toString(),
                             Trait,
                             seekBar.progress.toFloat(),
-                            objet1!!,
-                            objet2!!,
-                            0.0F,
-                            0.0F
+                            connexionModif!!.objet1,
+                            connexionModif!!.objet2,
+                            connexionModif!!.px_nom,
+                            connexionModif!!.py_nom
                         )
-                    }
-                }
-                if (status == "modifier_cnx") {
-                    if(old_name != name.text.toString()){
-                        if (graphe.myConnexions.containsKey(name.text.toString())) {
-                            popupNom()
-                        } else {
-                            graphe.setConnexion(old_name, name.text.toString(),Trait, seekBar.progress.toFloat(),connexionModif!!.objet1,connexionModif!!.objet2,connexionModif!!.px_nom,connexionModif!!.py_nom)
-                            invalidate()
-                            dialog.dismiss()
-                        }
-                    }else{
-                        graphe.setConnexion(old_name, name.text.toString(),Trait, seekBar.progress.toFloat(),connexionModif!!.objet1,connexionModif!!.objet2,connexionModif!!.px_nom,connexionModif!!.py_nom)
                         invalidate()
                         dialog.dismiss()
                     }
+                } else {
+                    graphe.setConnexion(
+                        old_name,
+                        name.text.toString(),
+                        Trait,
+                        seekBar.progress.toFloat(),
+                        connexionModif!!.objet1,
+                        connexionModif!!.objet2,
+                        connexionModif!!.px_nom,
+                        connexionModif!!.py_nom
+                    )
+                    invalidate()
+                    dialog.dismiss()
                 }
+            }
             //}
 
         }
@@ -697,6 +722,7 @@ class GraphView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
         }
         dialog.show()
     }
+
     fun popupCnx() {
         val dialog = Dialog(context)
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
@@ -708,22 +734,19 @@ class GraphView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
         }
         dialog.show()
     }
-    fun CnxExiste(a:Objet, b:Objet):Boolean{
 
-            val iterator = graphe.myConnexions.iterator()
-            while (iterator.hasNext()){
-                val item = iterator.next()
-                if(item.value.objet1.etiquette == a.etiquette || item.value.objet1.etiquette == b.etiquette || item.value.objet2.etiquette == a.etiquette || item.value.objet2.etiquette == b.etiquette ){
-                   return true
-                }
+    fun CnxExiste(a: Objet, b: Objet): Boolean {
+
+        val iterator = graphe.myConnexions.iterator()
+        while (iterator.hasNext()) {
+            val item = iterator.next()
+            if (item.value.objet1.etiquette == a.etiquette || item.value.objet1.etiquette == b.etiquette || item.value.objet2.etiquette == a.etiquette || item.value.objet2.etiquette == b.etiquette) {
+                return true
             }
+        }
 
         return false
     }
-
-
-
-
 
 }
 
