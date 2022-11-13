@@ -1,8 +1,14 @@
 package fr.istic.mob.networkBT
 
+import android.Manifest
+import android.app.Activity
 import android.app.Dialog
+import android.content.ActivityNotFoundException
 import android.content.Context
+import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.*
+import android.net.Uri
 import android.util.AttributeSet
 import android.util.Log
 import android.view.GestureDetector
@@ -11,6 +17,12 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.Window
 import android.widget.*
+import androidx.core.app.ActivityCompat
+import androidx.core.content.FileProvider
+import java.io.*
+import java.nio.file.Files
+import java.nio.file.Paths
+import java.util.*
 
 
 class GraphView(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
@@ -665,17 +677,10 @@ class GraphView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
 
         return false
     }
-    //TODO : Verif si une boucle existe
-    fun Boucle(a:Objet, b:Objet):Boolean{
-        val iterator = graphe.myConnexions.iterator()
-        while (iterator.hasNext()){
-            val item = iterator.next()
-            if(item.value.objet1.etiquette == a.etiquette || item.value.objet1.etiquette == b.etiquette || item.value.objet2.etiquette == a.etiquette || item.value.objet2.etiquette == b.etiquette ){
-                return true
-            }
-        }
-        return true
-    }
+
+
+
+
 
 }
 
