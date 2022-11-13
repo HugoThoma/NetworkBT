@@ -206,18 +206,18 @@ class GraphView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
         //dessin d'objet
         for (dessin in graphe.myObjects.values) {
             if (dessin.etiquette != "") {
-                canvas.drawCircle(dessin.px, dessin.py, width, dessin.couleur)
+                var paint = dessin.couleur
+                paint.color = dessin.couleur.color
+                paint.style = Paint.Style.FILL_AND_STROKE
+                canvas.drawCircle(dessin.px, dessin.py, width, paint)
                 canvas.drawText(dessin.etiquette, dessin.px, dessin.py, TxtPaint)
-                //Log.e("COULEUR : ", dessin.etiquette + dessin.couleur.toString())
             }
         }
         //dessin de connexion
         for (connexion in graphe.myConnexions.values) {
-            //Log.i("nb cnx", graphe.myConnexions.toString())
 
             path.moveTo(connexion.objet1.px, connexion.objet1.py)
             path.lineTo(connexion.objet2.px, connexion.objet2.py)
-            //canvas.drawLine(connexion.objet1.px, connexion.objet1.py, connexion.objet2.px, connexion.objet2.py, Trait)
             connexion.color.strokeWidth = connexion.epaisseur
             canvas.drawPath(path, connexion.color)
             graphe.setConnexionName_coord(connexion.name, connexion.objet1, connexion.objet2)
@@ -428,12 +428,6 @@ class GraphView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
 
         submitButton.setOnClickListener {
 
-            //val name = name_obj.text.toString()
-            //Radio btn + image a ajouter
-            /*if (graphe.myObjects.containsKey(name_obj.text.toString())){
-                popupNom()
-            }
-            else {*/
             if (status == "ajouter_obj") {
                 if (graphe.myObjects.containsKey(name_obj.text.toString())) {
                     popupNom()
@@ -664,12 +658,6 @@ class GraphView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
         }
 
         submitButton.setOnClickListener {
-            /*if (graphe.myConnexions.containsKey(name.text.toString())){
-                popupNom()
-            }else if(CnxExiste(objet1!!, objet2!!)) {
-                popupCnx()
-            }
-            else{*/
             if (status == "connecter_obj") {
                 if (graphe.myConnexions.containsKey(name.text.toString())) {
                     popupNom()
@@ -774,24 +762,8 @@ class GraphView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
         }
         return false
     }
-    fun test(){
-//        for (connexion in graphe.myConnexions.values) {
-//            //Log.i("nb cnx", graphe.myConnexions.toString())
-//
-//            //path.moveTo(connexion.objet1.px, connexion.objet1.py)
-//            path.lineTo(connexion.objet2.px, connexion.objet2.py)
-//            //canvas.drawLine(connexion.objet1.px, connexion.objet1.py, connexion.objet2.px, connexion.objet2.py, Trait)
-//            canvas.drawPath(path, connexion.color)
-//            graphe.setConnexionName_coord(connexion.name, connexion.objet1, connexion.objet2)
-//            canvas.drawText(
-//                connexion.name,
-//                connexion.px_nom,
-//                connexion.py_nom,
-//                TxtPaint
-//            )
-//            path.reset()
-//        }
-        postInvalidate()
+    fun afficher(){
+        invalidate()
     }
 
 }

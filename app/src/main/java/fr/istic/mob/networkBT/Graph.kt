@@ -10,9 +10,6 @@ import kotlin.collections.HashMap
 
 class Graph {
     // contient le descr du graphe des connexions: objet,conx,couleur, posi
-    //private var noeuds : HashSet<>
-    //var colorofobject = Color.CYAN
-    //var colorofpath = Color.GREEN
     var strokeWidth = 12f
     var myObjects: HashMap<String, Objet> = hashMapOf<String, Objet>()//stock tt les obj
     var myConnexions: HashMap<String, Connexion> = hashMapOf<String, Connexion>()//stock tt les obj
@@ -43,27 +40,11 @@ class Graph {
     fun setObjet(oldName: String, name: String, color: Paint, image: String, px: Float, py: Float) {
         deleteObjet(oldName)
         addObject(name,color,image,px,py)
-        /*for (obj in myObjects.values) {
-            if (obj.etiquette == oldName) {
-                obj.etiquette = name
-                obj.couleur = color
-                obj.image = image
-            }
-        }*/
     }
 
     fun setConnexion(oldName: String, name : String, color : Paint,epaisseur: Float, objetDépart: Objet, objetArrivée: Objet, px_nom: Float, py_nom: Float){
-
         deleteConnexion(oldName)
         addConnexion(name, color, epaisseur, objetDépart, objetArrivée, px_nom, py_nom)
-        /*for(connexion in myConnexions.values){
-            if (connexion.name == oldName){
-                connexion.name = name
-                connexion.color = color
-                connexion.epaisseur = epaisseur
-            }
-
-        }*/
     }
 
     //Pour donner des coordonnées au libellé de la connexion

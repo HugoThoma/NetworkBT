@@ -242,7 +242,7 @@ class MainActivity : AppCompatActivity() {
             recup.myObjects = HashMap<String, Objet>(listobjet)
             recup.myConnexions = HashMap<String, Connexion>(listconnexion)
             graphView.graphe= recup
-            graphView.test()
+            graphView.afficher()
 
         } catch (e: Exception){
             println(e.message)
