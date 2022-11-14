@@ -65,6 +65,11 @@ class Graph {
                 iterator.remove()
             }
         }
+        for (connexion in myConnexions.values) {
+            if(connexion.objet1.etiquette == name || connexion.objet2.etiquette == name){
+                deleteConnexion(connexion.name)
+            }
+        }
     }
 
     fun deleteConnexion(name: String){
