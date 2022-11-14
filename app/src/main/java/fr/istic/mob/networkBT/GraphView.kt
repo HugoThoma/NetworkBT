@@ -1,28 +1,15 @@
 package fr.istic.mob.networkBT
 
-import android.Manifest
-import android.app.Activity
 import android.app.Dialog
-import android.content.ActivityNotFoundException
 import android.content.Context
-import android.content.Intent
-import android.content.pm.PackageManager
 import android.graphics.*
-import android.net.Uri
 import android.util.AttributeSet
-import android.util.Log
 import android.view.GestureDetector
 import android.view.GestureDetector.SimpleOnGestureListener
 import android.view.MotionEvent
 import android.view.View
 import android.view.Window
 import android.widget.*
-import androidx.core.app.ActivityCompat
-import androidx.core.content.FileProvider
-import java.io.*
-import java.nio.file.Files
-import java.nio.file.Paths
-import java.util.*
 
 
 class GraphView(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
@@ -449,6 +436,40 @@ class GraphView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
                             objetModif!!.px,
                             objetModif!!.py
                         )
+                        //Récupération de l'objet modifié
+                        lateinit var objetModified: Objet
+                        for (obj in graphe.myObjects.values) {
+                            if(obj.etiquette == name_obj.text.toString()){
+                                objetModified = obj
+                            }
+                        }
+                        //Modifier les connexion
+                        for (connexion in graphe.myConnexions.values) {
+                            if(connexion.objet1.etiquette == old_name){
+                                graphe.setConnexion(
+                                    connexion.name,
+                                    connexion.name,
+                                    connexion.color,
+                                    connexion.epaisseur,
+                                    objetModified,
+                                    connexion.objet2,
+                                    connexion.px_nom,
+                                    connexion.py_nom
+                                )
+                            } else if(connexion.objet2.etiquette == old_name){
+                                graphe.setConnexion(
+                                    connexion.name,
+                                    connexion.name,
+                                    connexion.color,
+                                    connexion.epaisseur,
+                                    connexion.objet1,
+                                    objetModified,
+                                    connexion.px_nom,
+                                    connexion.py_nom
+                                )
+                            }
+                        }
+
                         invalidate()
                         dialog.dismiss()
                     }
