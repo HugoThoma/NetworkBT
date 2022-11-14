@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">NetworkBT</string>
+    <string name="Mode">Action</string>
+    <string name="Add_Object">Add object</string>
+    <string name="Add_Cnx">Add connexion</string>
+    <string name="Mod_Object">Modify object</string>
+    <string name="Mod_Cnx">Modify connexion</string>
+    <string name="Reini">Reinitialize</string>
+    <string name="save">Save</string>
+    <string name="load">Load</string>
+    <string name="plan">Change the plan</string>
+    <string name="mail">Share</string>
+
+    <string name="obj_title">Object</string>
+    <string name="obj_name">Name</string>
+    <string name="obj_image">Image</string>
+    <string name="incomplete">Please enter all information</string>
+    <string name="cnx_title">Connexion</string>
+    <string name="cnx_name">Nom</string>
+    <string name="cnx_width">Width</string>
+    <string name="color">Color</string>
+    <string name="red">Red</string>
+    <string name="green">Green</string>
+    <string name="blue">Blue</string>
+    <string name="yellow">Yellow</string>
+    <string name="cyan">Cyan</string>
+    <string name="pink">Pink</string>
+    <string name="black">Black</string>
+
+    <string name="obj_message">This name already has been used, please chose another name </string>
+    <string name="obj_messagecnx">A connexion is already created between those 2 objects</string>
+
+    <string name="validate">Validate</string>
+    <string name="cancel">Cancel</string>
+    <string name="delete">Delete</string>
+
+    <string name="PopUp">Give a name !</string>
+    <string name="PopuPlan">Choose a plan !</string>
+
+</resources>

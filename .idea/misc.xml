@@ -5,6 +5,10 @@
       <map>
         <entry key="..\:/AndroidStudioProjects/NetworkBT/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2265" />
         <entry key="..\:/AndroidStudioProjects/NetworkBT/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/AndroidStudioProjects/NetworkBT/app/src/main/res/layout/dialog_cnx.xml" value="0.11614583333333334" />
+        <entry key="..\:/AndroidStudioProjects/NetworkBT/app/src/main/res/layout/dialog_object.xml" value="0.19746376811594202" />
+        <entry key="..\:/AndroidStudioProjects/NetworkBT/app/src/main/res/layout/popup_message.xml" value="0.12386018237082067" />
+        <entry key="..\:/AndroidStudioProjects/NetworkBT/app/src/main/res/layout/popup_message_cnx.xml" value="0.13903985507246377" />
         <entry key="..\:/AndroidStudioProjects/NetworkBT/app/src/main/res/menu/activity_main_menu.xml" value="0.2015625" />
         <entry key="..\:/AndroidStudioProjects/NetworkBT/app/src/main/res/menu/activity_main_menu_xml.xml" value="0.25364583333333335" />
       </map>

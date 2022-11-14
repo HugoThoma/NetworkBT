@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">NetworkBT</string>
     <string name="Mode">Mode</string>
@@ -10,7 +11,6 @@
     <string name="load">Charger la sauvegarde</string>
     <string name="plan">Changer de plan</string>
     <string name="mail">Partager par mail</string>
-
 
     <string name="obj_title">Objet</string>
     <string name="obj_name">Nom</string>
@@ -37,4 +37,5 @@
 
     <string name="PopUp">Donnez un nom !</string>
     <string name="PopuPlan">Choisissez un plan !</string>
+
 </resources>

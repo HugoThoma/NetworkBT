@@ -1,13 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:title="Mode">
+    <item android:title="@string/Mode">
         <menu>
-            <item android:title="Ajout Objet" />
-            <item android:title="Ajout Connexion" />
-            <item android:title="Modification" />
+            <item
+                android:id="@+id/objet"
+                android:title="@string/Add_Object" />
+            <item
+                android:id="@+id/connecter"
+                android:title="@string/Add_Cnx" />
+            <item
+                android:id="@+id/modifierobjet"
+                android:title="@string/Mod_Object" />
+            <item
+                android:id="@+id/modifierconnexion"
+                android:title="@string/Mod_Cnx" />
         </menu>
     </item>
-    <item android:title="Prochainement" />
-    <item android:title="Prochainement" />
+    <item
+        android:id="@+id/sauver"
+        android:title="@string/save" />
+    <item
+        android:id="@+id/load"
+        android:title="@string/load" ></item>
+    <item
+        android:id="@+id/plan"
+        android:title="@string/plan" >
+        <menu >
+            <item
+                android:id="@+id/plan1"
+                android:title="Plan 1" />
+            <item
+                android:id="@+id/plan2"
+                android:title="Plan 2" />
+        </menu>
+    </item>
+    <item
+        android:id="@+id/mail"
+        android:title="@string/mail" />
+    <item
+        android:id="@+id/reini"
+        android:title="@string/Reini" />
+
 </menu>

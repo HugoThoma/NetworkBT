@@ -1,7 +1,11 @@
 package fr.istic.mob.networkBT
 
+import android.graphics.Paint
+
 data class Objet(
-    val etiquette : String,
-    val px : Float,
-    val py : Float,
+    var etiquette : String,
+    var couleur : Paint,
+    var image : String,
+    var px : Float,
+    var py : Float,
 )
