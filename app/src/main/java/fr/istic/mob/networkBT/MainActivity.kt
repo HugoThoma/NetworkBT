@@ -1,25 +1,23 @@
 package fr.istic.mob.networkBT
 
 import android.annotation.SuppressLint
-import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Paint
 import android.net.Uri
 import android.os.Bundle
-import android.os.Environment
 import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.view.menu.MenuBuilder
 import androidx.core.content.FileProvider
-import androidx.room.Room
 import java.io.*
+import java.nio.file.Files
+import java.nio.file.Paths
 
 
 class MainActivity : AppCompatActivity() {
@@ -118,8 +116,17 @@ class MainActivity : AppCompatActivity() {
         view.draw(canvas)
         val dirPath = getExternalFilesDir(null).toString()!!+ File.separator + "Screenshot"
         val dir = File(dirPath)
+        if (!dir.exists()) { Files.createDirectories(Paths.get(dirPath)) }
+
         val imagefile = File(dirPath, "test.png")
-        imagefile.createNewFile()
+
+        val isNewFileCreated :Boolean = imagefile.createNewFile()
+
+        if(isNewFileCreated){
+            println(" is created successfully.")
+        } else{
+            println("already exists.")
+        }
         lateinit var outputStream : OutputStream
         try {
             outputStream = FileOutputStream(imagefile)
